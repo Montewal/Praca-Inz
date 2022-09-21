@@ -5,5 +5,13 @@
   <PropertyGroup>
     <EnvName>PHPDev</EnvName>
     <RuntimeVersion>8.1</RuntimeVersion>
+    <RootNamespace>Serwis</RootNamespace>
+    <WebRoot />
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Website\Content\JS\" />
+    <Folder Include="Website\Content\CSS\" />
+    <Folder Include="Website\Content\Pictures\" />
+    <Folder Include="Website\Classes\" />
+  </ItemGroup>
 </Project>
