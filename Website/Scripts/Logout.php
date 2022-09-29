@@ -2,7 +2,7 @@
 // Initialize the session
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: /terminal/test.php");
+    header("location: ../../Home.php");
     exit;
 }
 // Unset all of the session variables
@@ -12,6 +12,6 @@ $_SESSION = array();
 session_destroy();
 
 // Redirect to login page
-header("location: index.php");
+header("location: ../../Home.php");
 exit;
 ?>

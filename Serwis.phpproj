@@ -12,6 +12,5 @@
     <Folder Include="Website\Content\JS\" />
     <Folder Include="Website\Content\CSS\" />
     <Folder Include="Website\Content\Pictures\" />
-    <Folder Include="Website\Classes\" />
   </ItemGroup>
 </Project>

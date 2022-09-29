@@ -1,0 +1,22 @@
+﻿.section{
+    width: 100%;
+    height: 100%;
+}
+.section menu {
+    width: 100%;
+    height: 20%;
+}
+.section content {
+    width: 100%;
+    height: 80%;
+}
+ul{
+    width: 100px;
+    position: absolute;
+    left: 100px;
+    top: 0;
+    list-style-type: none;
+}
+menu{
+    display: none;
+}
