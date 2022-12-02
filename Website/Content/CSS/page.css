@@ -1,0 +1,59 @@
+﻿body{
+    background-color: lightskyblue;
+    overflow-x: hidden;
+}
+.section{
+    width: 100%;
+    height: 100%;
+}
+.navi{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 68px;
+}
+.title{  
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 600px;
+    background-image: url(https://images.alphacoders.com/105/1056771.jpg);
+    background-repeat: no-repeat;
+    background-size: cover ; 
+    z-index: 0;
+}
+
+.page{
+    width: 1200px;
+    height: 600px;
+    margin:0 auto;
+    text-align: left;
+}
+.page-content{
+    width: 1000px;
+    max-height: 600px;
+    padding: 3em;
+    inline-size: 400px;
+    line-height: 3em;
+}
+h1{
+    -webkit-text-stroke: 2px black; /* width and color */
+    font-family:Verdana, Geneva, Tahoma, sans-serif; color: black;
+    font-size: 60px;
+    font-weight: 500;
+    line-height: 50px;
+    color: white;
+}
+.content{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 2050px;
+    border: red 1px solid;
+}
+.footer{
+    width: 100%;
+    height: 50px;
+    border: red 1px solid;
+}
+

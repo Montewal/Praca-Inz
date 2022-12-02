@@ -1,7 +1,143 @@
-﻿body{
-    background-color: #f1eef5;
-    font: 14px sans-serif; 
-}
+﻿body {
+    margin: 0;
+    font-family: Helvetica, sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  a {
+    color: #000;
+  }
+  
+  /* header */
+  
+  .header {
+    background-color: #fff;
+    box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+  }
+  
+  .header ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    background-color: #fff;
+  }
+  
+  .header li a {
+    display: block;
+    padding: 20px 20px;
+    border-right: 1px solid #f4f4f4;
+    text-decoration: none;
+  }
+  
+  .header li a:hover,
+  .header .menu-btn:hover {
+    background-color: #f4f4f4;
+  }
+  
+  .header .logo {
+    display: block;
+    float: left;
+    font-size: 2em;
+    padding: 10px 20px;
+    text-decoration: none;
+  }
+  
+  /* menu */
+  
+  .header .menu {
+    clear: both;
+    max-height: 0;
+    transition: max-height .2s ease-out;
+  }
+  
+  /* menu icon */
+  
+  .header .menu-icon {
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    padding: 28px 20px;
+    position: relative;
+    user-select: none;
+  }
+  
+  .header .menu-icon .navicon {
+    background: #333;
+    display: block;
+    height: 2px;
+    position: relative;
+    transition: background .2s ease-out;
+    width: 18px;
+  }
+  
+  .header .menu-icon .navicon:before,
+  .header .menu-icon .navicon:after {
+    background: #333;
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    transition: all .2s ease-out;
+    width: 100%;
+  }
+  
+  .header .menu-icon .navicon:before {
+    top: 5px;
+  }
+  
+  .header .menu-icon .navicon:after {
+    top: -5px;
+  }
+  
+  /* menu btn */
+  
+  .header .menu-btn {
+    display: none;
+  }
+  
+  .header .menu-btn:checked ~ .menu {
+    max-height: 240px;
+  }
+  
+  .header .menu-btn:checked ~ .menu-icon .navicon {
+    background: transparent;
+  }
+  
+  .header .menu-btn:checked ~ .menu-icon .navicon:before {
+    transform: rotate(-45deg);
+  }
+  
+  .header .menu-btn:checked ~ .menu-icon .navicon:after {
+    transform: rotate(45deg);
+  }
+  
+  .header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+  .header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+    top: 0;
+  }
+  
+  /* 48em = 768px */
+  
+  @media (min-width: 48em) {
+    .header li {
+      float: left;
+    }
+    .header li a {
+      padding: 20px 30px;
+    }
+    .header .menu {
+      clear: none;
+      float: right;
+      max-height: none;
+    }
+    .header .menu-icon {
+      display: none;
+    }
+  }
 h4 {
     font-weight: 600;
     color: #3a3845;
@@ -20,7 +156,7 @@ h4 {
             linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
             url(https://images.alphacoders.com/105/1056771.jpg);
     background-repeat: no-repeat;
-    background-size: 100% ;
+    background-size: cover ;
     filter: brightness(10%);
     filter: blur(4px); 
     z-index: 0;
@@ -41,11 +177,25 @@ h4 {
     left: 0;
     top: 0;
     background-color: #f1eef5;   
-    background-image: url('https://img.freepik.com/free-vector/blue-technology-circuit-diagram-with-glowing-line-lights_1017-17266.jpg?w=1380&t=st=1664117783~exp=1664118383~hmac=f97ee72c60cbca42a740d15f3371b56927c1589c0cd23bdb3b5a3c1dc25cdfb2');
-    background-position: bottom center;
+    background-image: url('https://st4.depositphotos.com/1000423/28312/i/450/depositphotos_283125604-stock-photo-the-concept-of-crypto-currency.jpg');
+    background-position: right center;
     background-repeat: no-repeat;
-    background-size: 130%;
+    background-size: 90%;
     z-index: 3;
+}
+.formbackgroundreg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
+  border :#f1eef5 2px solid;
+  left: 0;
+  top: 0;
+  background-color: #f1eef5;   
+  background-image: url('https://static9.depositphotos.com/1000128/1130/i/450/depositphotos_11308826-stock-photo-server-room-interior.jpg');
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 120%;
+  z-index: 3;
 }
 
 .formcenter{
@@ -172,7 +322,7 @@ h4 {
         letter-spacing: 1px;
         text-align: center;
         border: none;
-        background-color: #2620a1;
+        background-color: #444bb6;
         color: #cfced5;
         border: #ffeba7 0.5px solid;
         border-radius: 20px;
@@ -180,13 +330,13 @@ h4 {
     }
     .btn-forgot:active,
     .btn-forgot:focus {
-        background-color: #102770;
+        background-color: #393587;
         color: #ffeba7;
         box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
     }
 
     .btn-forgot:hover {
-        background-color: #102770;
-        color: #ffeba7;
+        background-color: #393587;
+        color: #e1e1e1;
         box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
     }

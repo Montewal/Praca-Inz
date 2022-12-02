@@ -3,11 +3,11 @@
 <head>
     <link rel="icon" type="image/x-icon" href="terminal/pictures/Favicon.ico" />
     <meta charset="UTF-8" /> 
-    <title>Login It Service</title>
+    <title>Login</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../Content/CSS/indexDisplay.css" />
+    <link rel="stylesheet" href="../Content/CSS/display_login.css" />
 </head>
 <body>
     <div class="back">    </div> 
