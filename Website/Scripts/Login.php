@@ -17,7 +17,7 @@
                     <div class="formbackground">
                         <div class="form">
                             <div class="insideform">
-                            <h4>Login Account</h4>
+                            <h4>Zaloguj się do IT World</h4>
                             <?php
                             if(!empty($login_err))
                             {
@@ -34,14 +34,14 @@
                             ?>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="searchform">
                                 <div class="form-group">
-                                    <input type="text" name="username" placeholder="Your Username" class="form-style <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>" />
+                                    <input type="text" name="username" placeholder="Wpisz nazwę użytkownika" class="form-style <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>" />
                                     <i class="input-icon uil uil-at"></i>
                                     <span class="invalid-feedback">
                                         <?php echo $username_err; ?>
                                     </span>
                                 </div>
                                 <div class="form-group mt-2">
-                                    <input type="password" name="password" placeholder="Your Password" autocomplete="off" class="form-style <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" />
+                                    <input type="password" name="password" placeholder="Wpisz hasło" autocomplete="off" class="form-style <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" />
                                     <i class="input-icon uil uil-lock-alt"></i>
                                     <span class="invalid-feedback">
                                         <?php echo $password_err; ?>
@@ -49,9 +49,11 @@
                                 </div>
                                 <br/>
                                 <div class="form-group">
-                                    <input type="submit" class="btn login" value="Login" onclick="Loader('loading');" />
-                                    <input type="submit" class="btn sign-in" value="Sign In" onclick="Loader('loading');" />
-                                    <input type="submit" class="btn-forgot password" value="Forgot Password" onclick="Loader('loading');" />
+                                    <input type="submit" class="btn login" value="Zaloguj się" onclick="Loader('loading');" />
+                                    <input type="submit" class="btn sign-in" value="Zarejestruj się" onclick="Loader('loading');" />
+                                    <input type="submit" class="btn-forgot password" value="Nie pamiętam hasła" onclick="Loader('loading');" />
+                                    <br/>
+                                    <br/>
                                 </div>
                             </form>
                         </div>

@@ -30,25 +30,23 @@
     <div class="section">
         <div class="navi">
             <header class="header">
-                <a href="index.php" class="logo">IT World</a>
+                <a href="index.php" class="logo">IT World</a>  
                 <input class="menu-btn" type="checkbox" id="menu-btn" />
                 <label class="menu-icon" for="menu-btn"> <span class="navicon"> </span> </label>
+                <a href="index.php" class="button"> Logowanie </a>
+                <a href="index.php" class="button"> Rejestracja </a>
                 <ul class="menu">
-                    <li> <a href="#"> Home </a> </li>
                     <li> <a href="#"> Serwis </a> </li>
                     <li> <a href="#"> Usługi </a> </li>
                     <li> <a href="#"> Cennik </a> </li>
                     <li> <a href="#"> Kontakt </a> </li>
                     <li> <a href="#"> Sklep </a> </li>
-                </ul>
-                <div class="buttons">
-                    
-                </div>
+                </ul>         
             </header>
         </div>
         <div class="title">
             <div class="page">
-                <div class="page-content">
+                <div class="page-description">
                     <h1>Serwis IT</h1></br>
                     <h1>Praca Inżynierska</h1></br>
                     <h1>Kamil Korzeniowski</h1>
@@ -56,7 +54,11 @@
             </div>
         </div>
         <div class="content">
-
+            <div class="content-allign">
+                <div class="content-text">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi vitae suscipit tellus mauris a. Sed libero enim sed faucibus turpis in eu mi bibendum. Luctus accumsan tortor posuere ac ut. Pellentesque elit ullamcorper dignissim cras tincidunt. In eu mi bibendum neque egestas. Mauris pellentesque pulvinar pellentesque habitant. Volutpat odio facilisis mauris sit amet massa vitae tortor. Posuere morbi leo urna molestie at. Sed lectus vestibulum mattis ullamcorper velit. Lacus suspendisse faucibus interdum posuere lorem. Ac turpis egestas sed tempus urna et pharetra pharetra massa. Euismod nisi porta lorem mollis. Eget sit amet tellus cras adipiscing enim eu turpis egestas. Vitae elementum curabitur vitae nunc. Pretium aenean pharetra magna ac. Malesuada fames ac turpis egestas integer eget aliquet nibh praesent.</p>
+                </div>
+            </div>
         </div>
         <div class="footer">
 

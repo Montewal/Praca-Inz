@@ -1,18 +1,18 @@
-﻿body{
+﻿body {
     background-color: lightskyblue;
     overflow-x: hidden;
 }
-.section{
+.section {
     width: 100%;
     height: 100%;
 }
-.navi{
+.navi {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 68px;
 }
-.title{  
+.title {  
     margin: 0;
     padding: 0;
     width: 100%;
@@ -23,20 +23,20 @@
     z-index: 0;
 }
 
-.page{
+.page {
     width: 1200px;
     height: 600px;
     margin:0 auto;
     text-align: left;
 }
-.page-content{
+.page-description {
     width: 1000px;
     max-height: 600px;
     padding: 3em;
     inline-size: 400px;
     line-height: 3em;
 }
-h1{
+h1 {
     -webkit-text-stroke: 2px black; /* width and color */
     font-family:Verdana, Geneva, Tahoma, sans-serif; color: black;
     font-size: 60px;
@@ -44,16 +44,35 @@ h1{
     line-height: 50px;
     color: white;
 }
-.content{
+.content {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 2050px;
+    background-color: #fff;
     border: red 1px solid;
 }
-.footer{
+.content-allign {
+    width: 1200px;
+    height: 600px;
+    margin:0 auto;
+    text-align: left;
+}
+.content-text {
+    width: 1000px;
+    max-height: 600px;
+    font-size: 1.6em;
+    padding: 3em;
+    inline-size: 400px;
+    line-height: 1em;
+}
+.footer {
     width: 100%;
     height: 50px;
     border: red 1px solid;
 }
-
+@media (min-width: 60em) {
+    .content-text {
+        inline-size: 1000px !important;
+    }
+}
