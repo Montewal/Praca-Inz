@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿<?php
+    session_start();
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="terminal/pictures/Favicon.ico" />
@@ -33,8 +36,20 @@
                 <a href="index.php" class="logo">IT World</a>  
                 <input class="menu-btn" type="checkbox" id="menu-btn" />
                 <label class="menu-icon" for="menu-btn"> <span class="navicon"> </span> </label>
-                <a href="index.php" class="button"> Logowanie </a>
-                <a href="index.php" class="button"> Rejestracja </a>
+                <?php
+                    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
+                    {
+                        //echo("<a href='/Website/Scripts/Login.php' class='button'> Logowanie </a>". 
+                           // "<a href='/Website/Scripts/Register.php' class='button'> Rejestracja </a>");
+                            echo("<a class='button'> Koszyk </a>". 
+                                 "<a class='button'> Profil </a>");
+                    }
+                    else
+                    {
+                        
+                    }
+                ?>
+                
                 <ul class="menu">
                     <li> <a href="#"> Serwis </a> </li>
                     <li> <a href="#"> Usługi </a> </li>
