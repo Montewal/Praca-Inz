@@ -17,13 +17,13 @@
         
         $(document).ready(function()
         {
-            $("li").mouseenter(function()
+            $(".profile").mouseenter(function()
             {
-                $(this).children('ul').css("display", "block");
+                $(".dropdown-content").css("display", "block");
             });
-            $("li").mouseleave(function()
+            $(".profile").mouseleave(function()
             {
-                $(this).children('ul').css("display", "none");
+                $(".dropdown-content").css("display", "none");
             }); 
         });
         
@@ -39,17 +39,17 @@
                 <?php
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
                     {
-                        //echo("<a href='/Website/Scripts/Login.php' class='button'> Logowanie </a>". 
-                           // "<a href='/Website/Scripts/Register.php' class='button'> Rejestracja </a>");
-                            echo("<a class='button'> Koszyk </a>". 
-                                 "<a class='button'> Profil </a>");
+                        echo("<a href='Website/Pages/Login.php' class='button'> Logowanie </a>". 
+                             "<a href='Website/Pages/Register.php' class='button'> Rejestracja </a>");
+                            
                     }
                     else
                     {
-                        
+                        echo("<a class='button' href='/Website/Scripts/Logout.php'> Wyloguj </a>". 
+                             "<a class='button' href='#'> Koszyk </a>");
                     }
                 ?>
-                
+               
                 <ul class="menu">
                     <li> <a href="#"> Serwis </a> </li>
                     <li> <a href="#"> Usługi </a> </li>
@@ -71,7 +71,7 @@
         <div class="content">
             <div class="content-allign">
                 <div class="content-text">
-                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi vitae suscipit tellus mauris a. Sed libero enim sed faucibus turpis in eu mi bibendum. Luctus accumsan tortor posuere ac ut. Pellentesque elit ullamcorper dignissim cras tincidunt. In eu mi bibendum neque egestas. Mauris pellentesque pulvinar pellentesque habitant. Volutpat odio facilisis mauris sit amet massa vitae tortor. Posuere morbi leo urna molestie at. Sed lectus vestibulum mattis ullamcorper velit. Lacus suspendisse faucibus interdum posuere lorem. Ac turpis egestas sed tempus urna et pharetra pharetra massa. Euismod nisi porta lorem mollis. Eget sit amet tellus cras adipiscing enim eu turpis egestas. Vitae elementum curabitur vitae nunc. Pretium aenean pharetra magna ac. Malesuada fames ac turpis egestas integer eget aliquet nibh praesent.</p>
+                   <p>IT_World to firma stworzona z pasji do technologii </p>
                 </div>
             </div>
         </div>

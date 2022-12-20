@@ -13,8 +13,6 @@ a {
   width: 100%;
   z-index: 3;
 }
-
-
 .header ul {
   margin: 0;
   padding: 0;
@@ -32,6 +30,13 @@ a {
 .header .menu-btn:hover {
   background-color: #f4f4f4;
 }
+.header .profile:hover {
+  background-color: #f4f4f4;
+}
+.header .button:hover {
+  background-color: #f4f4f4;
+}
+
 .header .logo {
   display: block;
   float: left;
