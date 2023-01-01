@@ -126,9 +126,9 @@ else {
                                 </div>
                                 <br/>
                                 <div class="form-group">
-                                    <input type="submit" class="btn login" value="Zaloguj się" onclick="Loader('loading');" />
-                                    <input type="submit" class="btn sign-in" value="Zarejestruj się" onclick="Loader('loading');" />
-                                    <input type="submit" class="btn-forgot password" value="Nie pamiętam hasła" onclick="Loader('loading');" />
+                                    <input type="submit" class="btn login" value="Zaloguj się" />
+                                    <input type="button" class="btn sign-in" value="Zarejestruj się" onClick="location.href='Register.php'" />
+                                    <input type="button" class="btn-forgot password" value="Nie pamiętam hasła" onClick="location.href='Reset.php'" />
                                     <br/>
                                     <br/>
                                 </div>

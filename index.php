@@ -12,22 +12,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="Website/Content/CSS/menu.css" />
     <link rel="stylesheet" href="Website/Content/CSS/page.css" />
-    <script>
-
-        
-        $(document).ready(function()
-        {
-            $(".profile").mouseenter(function()
-            {
-                $(".dropdown-content").css("display", "block");
-            });
-            $(".profile").mouseleave(function()
-            {
-                $(".dropdown-content").css("display", "none");
-            }); 
-        });
-        
-    </script>
 </head>
 <body>   
     <div class="section">
@@ -55,7 +39,12 @@
                     <li> <a href="#"> Usługi </a> </li>
                     <li> <a href="#"> Cennik </a> </li>
                     <li> <a href="#"> Kontakt </a> </li>
-                    <li> <a href="#"> Sklep </a> </li>
+                    <?php
+                    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){}else 
+                    {
+                        echo("<li> <a href='/Website/Pages/Shop.php'> Sklep </a> </li>");   
+                    }
+                    ?>           
                 </ul>         
             </header>
         </div>

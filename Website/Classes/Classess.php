@@ -8,6 +8,145 @@
 			$cut = substr($rand,0,10);
 			return $cut;
 		}
+		public static function Invoice_RefCode() 
+		{
+			$range = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+			$rand = str_shuffle($range);
+			$text = "ITW_";
+			$date = date("d_m_Y_");
+			$cut = substr($rand,0,6);
+			$ref = $text.$date.$cut;
+			return $ref;
+		}
+		public static function Invoice($ref) 
+		{
+			session_start();
+			require_once "../Classes/Classess.php";
+			require('../../vendor/tfpdf/tfpdf.php');
+
+			$pdf = new tFPDF('P','mm','A4');
+			$pdf->AddPage();
+			$pdf->AddFont('Times','','times.ttf',true);
+			$pdf->SetFont('Times','B',20);
+			$pdf->Cell(71 ,10,'',0,0);
+			$pdf->Cell(59 ,5,'Faktura',0,1);
+			$pdf->Cell(55 ,10,'',0,0);
+			$pdf->Cell(59 ,10,'nr. '.$ref,0,1);
+			$pdf->Cell(59 ,10,'',0,1);
+
+			$pdf->SetFont('Times','BU',15);
+			$pdf->Cell(70 ,7,'Sprzedawca',0,0);
+			$pdf->Cell(59 ,5,'',0,0);
+			$pdf->Cell(59 ,7,'Nabywca',0,1);
+
+			$pdf->SetFont('Times','',10);
+			$pdf->Cell(110 ,5,'IT World',0,0);
+			$pdf->Cell(30 ,5,'ID Klienta:',0,0);
+			$pdf->Cell(34 ,5,$_SESSION["username"],0,1);
+			$pdf->Cell(110 ,5,'Wrocław, Serwisantów 12',0,0);
+			$pdf->Cell(30 ,5,'Data Wystawienia:',0,0);
+			$pdf->Cell(40 ,5,date("d.m.Y H:i:s"),0,1);
+			$pdf->Cell(110 ,5,'helpdesk@IT_World',0,0);
+			$pdf->Cell(30 ,5,'Email: ',0,0);
+			$pdf->Cell(34 ,5,$_SESSION["email"],0,1); 
+			$pdf->Cell(110 ,5,'',0,1);
+			$pdf->Cell(30 ,5,'Nr konta: 40 0874 9852 XXXX 3258 XXXX 7539',0,1);
+			$pdf->Cell(30 ,5,'Termin zapłaty: '.date('d.m.Y', strtotime(date("Y-m-d"). ' + 14 days')),0,1);
+			$pdf->Cell(59 ,5,'',0,0);
+			$pdf->Cell(189 ,10,'',0,1);
+			$pdf->Cell(50 ,10,'',0,1);
+
+			$pdf->SetFont('Times','',10);
+			$pdf->Cell(10 ,6,'ID',1,0,'C');
+			$pdf->Cell(80 ,6,'Nazwa',1,0,'C');
+			$pdf->Cell(18 ,6,'Ilość',1,0,'C');
+			$pdf->Cell(39 ,6,'Koszt za sztukę [Brutto]',1,0,'C');
+			$pdf->Cell(40 ,6,'Koszt całkowity [Brutto]',1,1,'C');
+
+			if(isset($_SESSION["cart"]))
+			{
+				$total_price = 0;
+				$a = 1;
+				foreach ($_SESSION["cart"] as $product)
+				{		
+					$pdf->SetFont('Times','',10);
+					$pdf->Cell(10 ,6,$a++,1,0,'C');
+					$pdf->Cell(80 ,6,$product['name'],1,0,'C');
+					$pdf->Cell(18 ,6,$product["quantity"],1,0,'C');
+					$pdf->Cell(39 ,6,$product["price"].' zł',1,0,'C');
+					$pdf->Cell(40 ,6,sprintf("%.2f",$product["price"]*$product["quantity"]).' zł',1,1,'C');  
+					$total_price += ($product["price"]*$product["quantity"]);
+				}
+				$pdf->Cell(118 ,6,'',0,0);
+				$pdf->Cell(29 ,6,'Podsumowanie:',0,0);
+				$pdf->Cell(40 ,6,sprintf("%.2f", $total_price).' zł',1,1,'C'); 
+			}
+			$pdf->Cell(30 ,10,'',0,1);
+			$pdf->SetFont('Times','B',12);
+			$pdf->Cell(30 ,5,'Metoda:  Przelew',0,1);
+			$pdf->SetFont('Times','U',15);
+			$pdf->Cell(30 ,3,'',0,1);
+			$pdf->Cell(10 ,7,'Razem do Zapłaty: '.sprintf("%.2f", $total_price).' zł',0,1);
+			$pdf->SetFont('Times','',10);
+			$pdf->Cell(10 ,5,'Kwota słownie: '.Generate::numberToText($total_price).' złotych',0,1);
+			$pdf->Output("F", "../../Invoice/".$ref.".pdf");
+			return $pdf->Output("I", $ref);
+		}
+		public static function numberToText($liczba) 
+		{
+			
+			$separator = ' ';
+			$jednosci = array('', ' jeden', ' dwa', ' trzy', ' cztery', ' pięć', ' sześć', ' siedem', ' osiem', ' dziewięć');
+			$nascie = array('', ' jedenaście', ' dwanaście', ' trzynaście', ' czternaście', ' piętnaście', ' szesnaście', ' siedemnaście', ' osiemnaście', ' dziewietnaście');
+			$dziesiatki = array('', ' dziesieć', ' dwadzieścia', ' trzydzieści', ' czterdzieści', ' pięćdziesiąt', ' sześćdziesiąt', ' siedemdziesiąt', ' osiemdziesiąt', ' dziewięćdziesiąt');
+			$setki  = array('', ' sto', ' dwieście', ' trzysta', ' czterysta', ' pięćset', ' sześćset', ' siedemset', ' osiemset', ' dziewięćset');
+			$grupy = array(
+				array('' ,'' ,''),
+				array(' tysiąc' ,' tysiące' ,' tysięcy'),
+				array(' milion' ,' miliony' ,' milionów'),
+				array(' miliard',' miliardy',' miliardów'),
+				array(' bilion' ,' biliony' ,' bilionów'),
+				array(' biliard',' biliardy',' biliardów'),
+				array(' trylion',' tryliony',' trylionów')
+			);
+		
+			$wynik = ''; $znak = '';
+			if ($liczba == 0)
+				return 'zero';
+			if ($liczba < 0) 
+			{
+				$znak = 'minus';
+				$liczba = -$liczba;
+			}
+			$g = 0;
+			while ($liczba > 0) {
+		
+		
+				$s = floor(($liczba % 1000)/100);
+				$n = 0;
+				$d = floor(($liczba % 100)/10);
+				$j = floor($liczba % 10);
+		
+		
+				if ($d == 1 && $j>0) {
+					$n = $j;
+					$d = $j = 0;
+				}
+		
+				$k = 2;
+				if ($j == 1 && $s+$d+$n == 0)
+					$k = 0;
+				if ($j == 2 || $j == 3 || $j == 4)
+					$k = 1;
+		
+				if ($s+$d+$n+$j > 0)
+					$wynik = $setki[$s].$dziesiatki[$d].$nascie[$n].$jednosci[$j].$grupy[$g][$k].$wynik;
+		
+				$g++;
+				$liczba = floor($liczba/1000);
+			}
+			return trim($znak.$wynik);
+		}
 	}
 	class Database 
 	{
@@ -19,7 +158,7 @@
 			{
 				return false;
 			} 	
-				$sql = "SELECT email FROM users WHERE email = '".$email."'";
+				$sql = "SELECT email FROM users WHERE email = '$email'";
 				if($stmt = mysqli_prepare($link, $sql))
 				{
 					if($stmt->execute())
@@ -64,6 +203,10 @@
 				}
 			}
 			$link->close();
+		}
+		public static function AddOrder()
+		{
+			
 		}
 	}
 	class Website
