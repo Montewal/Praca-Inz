@@ -1,6 +1,8 @@
 <?php
-// dodaj zamówienie do orders w mysql
-// wyślij maila z pdf
-// skasuj koszyk
-// pokaż dziękujemy za zakupy wysłalismy my maila ze szczegółami
+namespace Classess;
+require_once "../Classes/Classess.php";
+
+
+// skasuj koszyk // to tutaj
+// pokaż dziękujemy za zakupy wysłalismy maila ze szczegółami
 ?>

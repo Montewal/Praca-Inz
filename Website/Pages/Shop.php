@@ -1,4 +1,5 @@
 <?php
+namespace Classess;
 session_start();
 error_reporting(~E_WARNING & ~E_NOTICE);
 require_once "../Scripts/Config.php";
@@ -10,6 +11,7 @@ if(isset($_POST["tag"])&& $_POST['tag']!="" )
 	$result = mysqli_query($link,"SELECT * FROM products WHERE tag = '$tag' ");
 	$row = mysqli_fetch_assoc($result);
 
+    $id = $row["id"];
 	$name = $row['name'];
 	$tag = $row['tag'];
 	$price = $row['price'];
@@ -17,6 +19,7 @@ if(isset($_POST["tag"])&& $_POST['tag']!="" )
 
 	$cartArr = array(
 		$tag=>array(
+        'id'=>$id,
 		'name'=>$name,
 		'price'=>$price,
 		'tag'=>$tag,
@@ -55,6 +58,7 @@ if(isset($_POST["tag"])&& $_POST['tag']!="" )
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="../Content/JS/shop_pages.js"></script>
     <link rel="stylesheet" href="../Content/CSS/cart.css" />
     <link rel="stylesheet" href="../Content/CSS/menu.css" />
     <link rel="stylesheet" href="../Content/CSS/page.css" />
@@ -63,7 +67,7 @@ if(isset($_POST["tag"])&& $_POST['tag']!="" )
     <div class="section">
         <div class="navi">
             <header class="header">
-                <a href="index.php" class="logo">IT World</a>  
+                <a href="../../index.php" class="logo">IT World</a>  
                 <input class="menu-btn" type="checkbox" id="menu-btn" />
                 <label class="menu-icon" for="menu-btn"> <span class="navicon"> </span> </label>
                 <?php
@@ -75,13 +79,13 @@ if(isset($_POST["tag"])&& $_POST['tag']!="" )
                     }
                     else
                     {
-                        echo("<a class='button' href='../Scripts/Logout.php'><img src='../Content/Pictures/logout.png' width='35px' height='35px'/></a>".
-                             "<a class='button' href='settings.php'><img src='../Content/Pictures/settings.png' width='35px' height='35px'/></a>");
+                        echo("<a class='button' href='../Scripts/Logout.php'><img src='../Content/Pictures/logout.png' width='35px' height='30px'/></a>".
+                             "<a class='button' href='settings.php'><img src='../Content/Pictures/settings.png' width='35px' height='30px'/></a>");
                         if(!empty($_SESSION["cart"])) 
                             {
                                 $cart_count = count(array_keys($_SESSION["cart"]));
                                 echo ("<div class='cart_div'><a class='button' href='cart.php'>
-                                <img src='../Content/Pictures/cart.png' width='35px' height='35px'/>
+                                <img src='../Content/Pictures/cart.png' width='35px' height='30px'/>
                                 <span class='cart-span'>$cart_count</span></div>");                
                             }
                     }
@@ -101,7 +105,7 @@ if(isset($_POST["tag"])&& $_POST['tag']!="" )
                 </ul>         
             </header>
         </div>
-        <div class="content">
+        <div class="content-shop">
             <div class="content-allign">
                 <div class="content-text">   
                     <?php
@@ -110,34 +114,80 @@ if(isset($_POST["tag"])&& $_POST['tag']!="" )
                         $cart_count = count(array_keys($_SESSION["cart"]));
                     }
                     ?>
-                    
+                
                     <?php
+                    $results = array();
                     $result = mysqli_query($link,"SELECT * FROM products");
+                    
                     while($row = mysqli_fetch_assoc($result))
                     {
-                        echo "<div class='product_wrapper'>
+                        $results[] .= 
+                            "<div class='product_wrapper'>
                                 <form method='post' action=''>
                                     <input type='hidden' name='tag' value=".$row['tag']." />
                                     <div class='image'>
-                                        <img src='".$row['img']."' width='150px' height='150px'/>
+                                        <img src='".$row['img']."' width='100px' height='100px'/>
                                     </div>
-                                    <div class='name'>".$row['name']."</div>
-                                    <div class='price'>$".$row['price']."</div>
-                                    <button type='submit' class='buy'>Kup</button>
+                                    <table>
+                                        <tr><td>
+                                            <div class='name'>".$row['name']."</div>
+                                        </td></tr>
+                                        <tr><td>
+                                            <div class='price'>".$row['price']."zł</div>
+                                        </td></tr>
+                                        <tr><td>
+                                            <button type='submit' class='buy'> Do koszyka </button>
+                                        </td></tr>
+                                    </table>
                                 </form>
                             </div>";
+                            
+                    }
+                    
+                    echo "<div class='pages'>";
+                    for($page_nr = 0; $page_nr <= 10; $page_nr++)
+                    {
+                        $page = array_slice($results,(12 * $page_nr),12);
+                        if(!empty($page))
+                        {
+                            echo "<div class='page-$page_nr'>";
+                            foreach($page as $element)
+                            {
+                                echo $element;
+                            }
+                            echo "</div>";
+                        }
+                    }
+                    echo "</div>";
+                    ?>
+                    <div style="clear:both;"></div>
+                    <div class="message">
+                        <?php echo $status; ?>
+                    </div>
+                    <div>
+                    <?php
+                    for($page_nr = 0; $page_nr <= 10; $page_nr++)
+                    {
+                        $page = array_slice($results,(12 * $page_nr),12);
+                        if(!empty($page))
+                        {                                
+                            echo "<button class='turn' value='$page_nr'>$page_nr</button>";
+                        }
                     }
                     mysqli_close($link);
                     ?>
-                    <div style="clear:both;"></div>
-                    <div class="message_box" style="margin:10px 0px;">
-                    <?php echo $status; ?>
                     </div>
+                </div>
             </div>
         </div>
         <div class="footer">
-
-        </div>    
+            <div class="footer-allign">
+                <p><b>Kontakt</b></p>
+                <p><img src="../Content/Pictures/phone.png" width='20px' height='20px'><a href="123456789"> 123456789</a></p>
+                <p><img src="../Content/Pictures/mail.png" width='20px' height='20px'><a href="mailto:kkorzeniowski.it@gmail.com"> Wyślij do nas maila</a></p>
+                <p><img src="../Content/Pictures/compass.png" width='20px' height='20px'><a href="https://www.google.com/maps/search/wroc%C5%82aw+Serwisant%C3%B3w+12/@51.1270151,16.9218244,12z/data=!3m1!4b1"> Serwisantów 12 Wrocław 53-343</a></p>
+            </div>
+        </div>  
     </div> 
 </body>
 </html>

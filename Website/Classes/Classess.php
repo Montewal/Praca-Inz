@@ -1,4 +1,9 @@
 <?php
+namespace Classess;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use tFPDF;
+
 	class Generate
 	{
 		public static function RandomPass() 
@@ -21,7 +26,6 @@
 		public static function Invoice($ref) 
 		{
 			session_start();
-			require_once "../Classes/Classess.php";
 			require('../../vendor/tfpdf/tfpdf.php');
 
 			$pdf = new tFPDF('P','mm','A4');
@@ -90,7 +94,6 @@
 			$pdf->SetFont('Times','',10);
 			$pdf->Cell(10 ,5,'Kwota słownie: '.Generate::numberToText($total_price).' złotych',0,1);
 			$pdf->Output("F", "../../Invoice/".$ref.".pdf");
-			return $pdf->Output("I", $ref);
 		}
 		public static function numberToText($liczba) 
 		{
@@ -146,13 +149,72 @@
 				$liczba = floor($liczba/1000);
 			}
 			return trim($znak.$wynik);
+		}	
+	}
+	class Mail 
+	{
+		public static function SendConfirmation($ref)
+		{
+			require_once "../Classes/Classess.php";
+			require "../../vendor/autoload.php";
+			if(!isset($_SESSION["email"]) || !isset($_SESSION["username"]) || !isset($_SESSION["loggedin"]) || !isset($_SESSION["userId"]))
+			{
+				header("location: ../../index.php");
+			}
+			else 
+			{
+				$username = $_SESSION["username"];
+				$email = $_SESSION["email"];
+				$name = "noreply@IT_World";
+				$subject = '=?UTF-8?B?'.base64_encode("Potwierdzenie Zamówienia").'?=';
+				$message = 
+				"<!DOCTYPE html>
+				<html lang='pl'>
+				<head>
+					<meta charset='UTF-8'>
+					<style>
+						p {
+							color: #000;
+						}
+					</style>
+				</head>
+				<body>
+					<br/>
+					<p>Cześć ".$username."</p>
+					<p> Dziękujemy za zakup produktów w IT World</p>
+					<br/>
+					<p> ID zamówienia".$ref."</p>
+					<p>Na dokonanie wpłaty wyznaczyliśmy 14 dni od daty zakupu</p>
+					<p>Realizacja zamówienia nastąpi po zaksięgowaniu wpłaty</p>
+					<p></p>
+					<p></p>
+					<p>Pozdrawiamy zespół IT World</p>
+					<br/>
+					</body>";
+
+				$mail = new PHPMailer(true);
+				$mail->isSMTP();
+				$mail->SMTPAuth = true;
+				$mail->Host = "smtp.gmail.com";
+				$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+				$mail->Port = 587;
+				$mail->Username = "kkorzeniowski.it@gmail.com";
+				$mail->Password = "jwkgzgfklfmamdxt";
+				$mail->addAttachment("../../Invoice/".$ref.".pdf");
+				$mail->IsHTML(true);
+				$mail->setFrom($email, $name);
+				$mail->addAddress($email, "@NoReply");
+				$mail->Subject = $subject;
+				$mail->Body = $message;
+				$mail->send(); 
+			}
 		}
 	}
 	class Database 
 	{
 		public static function ChangePass($email,$password)
 		{
-			require "../Scripts/Config.php";
+			require_once "../Scripts/Config.php";
 
 			if(empty($email) || empty($password)|| is_null($email))
 			{
@@ -204,9 +266,105 @@
 			}
 			$link->close();
 		}
-		public static function AddOrder()
+		public static function AddOrder($ref)
 		{
-			
+			session_start();
+			require "../Scripts/Config.php";
+			if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
+			{
+				header("location: ../../index.php");
+			}
+			else 
+			{	
+				$sql = "INSERT INTO orders (invoice, userid, price, status) VALUES (?, ?, ?, ?)";
+				if($stmt = mysqli_prepare($link, $sql))
+				{
+					$stmt->bind_param("siss", $param_invoice, $param_userid, $param_price, $param_status);
+					$param_invoice = $ref;
+					$param_userid = $_SESSION["userId"];
+					$param_price = sprintf("%.2f", $_SESSION["total_price"]);
+					$param_status = "nie_opłacony";
+					if($stmt->execute())
+					{
+						echo "success";
+					} 
+					else
+					{
+						echo "Oops! $link->error";
+					}
+					$stmt->close();
+				}		
+				$link->close();
+				
+			}
+		}
+		public static function AddOrder_details($ref)
+		{	
+			session_start();
+			require "../Scripts/Config.php";
+			if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
+			{
+				header("location: ../../index.php");
+			}
+			else 
+			{
+				foreach ($_SESSION["cart"] as $product) 
+				{
+					$sql = "INSERT INTO order_details (orderID, productID, price) VALUES (?, ?, ?)";
+					if($stmt = mysqli_prepare($link, $sql))
+					{
+						$stmt->bind_param("iis", $param_order, $param_product, $param_price);
+						$param_order = Database::FindOrder($ref);
+						$param_product = $product["id"];
+						$param_price = sprintf("%.2f", $product["price"]*$product["quantity"]);
+						if($stmt->execute())
+						{
+							echo "success";
+						} 
+						else
+						{
+							echo "Oops! $link->error";
+						}
+						
+					}
+					$stmt->close();		
+				}
+				$link->close();
+			}
+		}
+		public static function FindOrder($ref) 
+		{
+			require "../Scripts/Config.php";
+			$query="SELECT id FROM orders WHERE invoice = '".$ref."'";
+    		$query = mysqli_query($link,$query);
+    		$task = mysqli_fetch_assoc($query);
+    		$result = $task['id'];
+			if(!empty($result))
+			{
+				return $result;
+			}
+			else
+			{
+				return false;
+			}
+    		mysqli_close($link);
+		}
+		public static function CheckUser($email) 
+		{
+			require_once "../Scripts/Config.php";
+			$query="SELECT username FROM users WHERE email = '".$email."'";
+    		$query = mysqli_query($link,$query);
+    		$task = mysqli_fetch_assoc($query);
+    		$result = $task['username'];
+			if(!empty($result))
+			{
+				return $result;
+			}
+			else
+			{
+				return false;
+			}
+    		mysqli_close($link);
 		}
 	}
 	class Website
@@ -224,22 +382,5 @@
 				session_destroy();
 				header("location: ../../index.php");
 			}
-		}
-		public static function CheckUser($email) 
-		{
-			require "../Scripts/Config.php";
-			$query="SELECT username FROM users WHERE email = '".$email."'";
-    		$query = mysqli_query($link,$query);
-    		$task = mysqli_fetch_assoc($query);
-    		$result = $task['username'];
-			if(!empty($result))
-			{
-				return $result;
-			}
-			else
-			{
-				return false;
-			}
-    		mysqli_close($link);
 		}
 	}

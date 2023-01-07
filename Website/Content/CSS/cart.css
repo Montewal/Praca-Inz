@@ -2,6 +2,21 @@
     width: 150px;
     height: 150px;
 }
+#back{
+    margin-left: 30px;
+}
+.turn {
+    font-family:Verdana, Geneva, Tahoma, sans-serif; color: black;
+    color: #fff;
+    background: #4268a8;
+    border: 0,5px solid black;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    padding: 5px;
+    box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+}
 .cart-span {
     line-height: 5px !important;
     padding: 8px 14px 14px 6px !important; 
@@ -14,7 +29,8 @@ h2 {
 }
 .product_wrapper {
 	float:left;
-	padding: 10px;
+    margin :12px;
+    max-height: 300px;
 	text-align: center;
 	}
 .product_wrapper:hover {
@@ -23,21 +39,30 @@ h2 {
 	}
 .product_wrapper .name {
 	font-weight:bold;
+    height: 80px;
 	}
+.product_wrapper div {
+        font-size: 14px;
+        inline-size: 185px;
+}
+.product_wrapper td {
+    height: 30px;
+}
 .product_wrapper .buy {
 	text-transform: uppercase;
-    background: #F68B1E;
-    border: 1px solid #F68B1E;
+    background: #4268a8;
+    border: 1px solid #4268a8;
+    font-size: 16px;
     cursor: pointer;
     color: #fff;
-    padding: 8px 40px;
-    margin-top: 100px;
+    padding: 8px 20px;
+    margin-top: 15px;
 }
 .product_wrapper .buy:hover {
-	background: #f17e0a;
-    border-color: #f17e0a;
+	background: #4268a8;
+    border-color: #4268a8;
 }
-.message_box .box{
+.message .box{
 	margin: 10px 0px;
     border: 1px solid #2b772e;
     text-align: center;
@@ -59,7 +84,7 @@ h2 {
 .cart_div span {
 	font-size: 12px;
     line-height: 14px;
-    background: #F68B1E;
+    background: #3f59ff;
     padding: 2px;
     border: 2px solid #fff;
     border-radius: 50%;

@@ -1,0 +1,15 @@
+.pricing tr {
+    border: 2px solid black;
+    padding: 5px;
+    box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+}
+.pricing tr td {
+    padding: 3px;
+    min-width: 100px;
+}
+.content-text h1 {
+    color: rgb(28, 27, 27) !important;
+}
+tr:hover {
+    background-color: rgb(196, 195, 195);
+}

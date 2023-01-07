@@ -10,14 +10,15 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="Website/Content/CSS/cart.css" />
     <link rel="stylesheet" href="Website/Content/CSS/menu.css" />
     <link rel="stylesheet" href="Website/Content/CSS/page.css" />
 </head>
 <body>   
-    <div class="section">
+<div class="section">
         <div class="navi">
             <header class="header">
-                <a href="index.php" class="logo">IT World</a>  
+                <a href="../../index.php" class="logo">IT World</a>  
                 <input class="menu-btn" type="checkbox" id="menu-btn" />
                 <label class="menu-icon" for="menu-btn"> <span class="navicon"> </span> </label>
                 <?php
@@ -29,20 +30,27 @@
                     }
                     else
                     {
-                        echo("<a class='button' href='/Website/Scripts/Logout.php'> Wyloguj </a>". 
-                             "<a class='button' href='#'> Koszyk </a>");
+                        echo("<a class='button' href='Website/Scripts/Logout.php'><img src='Website/Content/Pictures/logout.png' width='35px' height='30px'/></a>".
+                             "<a class='button' href='Website/Pages/Settings.php'><img src='Website/Content/Pictures/settings.png' width='35px' height='30px'/></a>");
+                        if(!empty($_SESSION["cart"])) 
+                            {
+                                $cart_count = count(array_keys($_SESSION["cart"]));
+                                echo ("<div class='cart_div'><a class='button' href='Website/Pages/Cart.php'>
+                                <img src='Website/Content/Pictures/cart.png' width='35px' height='30px'/>
+                                <span class='cart-span'>$cart_count</span></div>");                
+                            }
                     }
                 ?>
                
                 <ul class="menu">
                     <li> <a href="#"> Serwis </a> </li>
                     <li> <a href="#"> Usługi </a> </li>
-                    <li> <a href="#"> Cennik </a> </li>
+                    <li> <a href="Website/Pages/Pricing.php"> Cennik </a> </li>
                     <li> <a href="#"> Kontakt </a> </li>
                     <?php
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){}else 
                     {
-                        echo("<li> <a href='/Website/Pages/Shop.php'> Sklep </a> </li>");   
+                        echo("<li> <a href='Website/Pages/Shop.php'> Sklep </a> </li>");   
                     }
                     ?>           
                 </ul>         
@@ -60,12 +68,30 @@
         <div class="content">
             <div class="content-allign">
                 <div class="content-text">
-                   <p>IT_World to firma stworzona z pasji do technologii </p>
+                   <p>Usługi Informatyczne z ofertą dla firm i indywidualnych klientów</p>
+                    </br>
+                    <p>Jesteśmy firmą powstałą z pasji do techologii z siedzibą we Wrocławiu. Nasza oferta zawiera szeroki zakres usług informatycznych dostarczanych w wysokiej jakości przez profesjonalny zespół</p>
+                    </br>
+                    <p>Możesz nam zaufać gdy potrzebujesz kompleksowaj naprawy laptopów i komputerów . Nasz zaspół zawsze stanie na wysokości zadania</p>
+                    </br>
+                    <p>Nasze motto to : "Wszystko można naprawić gdy posiadasz pasję"</p>
                 </div>
             </div>
         </div>
+        <div class="title">
+                    <div class="page">
+                        <div class="page-description">
+                            <h1>Czym się zajmujemy</h1></br>
+                        </div>
+                    </div>
+                </div>
         <div class="footer">
-
+            <div class="footer-allign">
+                <p><b>Kontakt</b></p>
+                <p><img src="Website/Content/Pictures/phone.png" width='20px' height='20px'><a href="123456789"> 123456789</a></p>
+                <p><img src="Website/Content/Pictures/mail.png" width='20px' height='20px'><a href="mailto:kkorzeniowski.it@gmail.com"> Wyślij do nas maila</a></p>
+                <p><img src="Website/Content/Pictures/compass.png" width='20px' height='20px'><a href="https://www.google.com/maps/search/wroc%C5%82aw+Serwisant%C3%B3w+12/@51.1270151,16.9218244,12z/data=!3m1!4b1"> Serwisantów 12 Wrocław 53-343</a></p>
+            </div>
         </div>    
     </div> 
 </body>

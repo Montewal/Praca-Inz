@@ -1,0 +1,28 @@
+.form-style {
+    padding: 13px 20px;
+    padding-left: 55px;
+    height: 48px;
+    width: 100%;
+    font-weight: 500;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+    outline: none;
+    color: #232032;
+    background-color: #dbdbec;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(21,21,21,.5);
+}
+.form-group {
+    position: relative;
+    display: block;
+    margin-left: 40%;
+    margin-right: 40%;  
+}
+#result1 , #result2 {
+    width: 100px;
+    height: 50px;
+    border: solid 1px red;
+
+}

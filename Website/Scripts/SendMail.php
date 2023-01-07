@@ -1,4 +1,5 @@
 <?php
+namespace Classess;
 require_once "../Classes/Classess.php";
 require "../../vendor/autoload.php";
 use PHPMailer\PHPMailer\PHPMailer;
@@ -7,7 +8,14 @@ use PHPMailer\PHPMailer\SMTP;
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
     $email = $_POST["email"];
-    $username = Website::CheckUser($email);
+    if(Database::CheckUser($email)) 
+    {
+        $username = Database::CheckUser($email);
+    }
+    else 
+    {
+        return;
+    }
     $password = Generate::RandomPass();
     $name = "noreply@IT_World";
     $subject = '=?UTF-8?B?'.base64_encode("Nowe hasło do IT_World").'?=';

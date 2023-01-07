@@ -1,4 +1,5 @@
 <?php
+	namespace Classess;
 	session_start();
 	error_reporting(~E_WARNING & ~E_NOTICE);
 	$status="";
@@ -39,10 +40,11 @@
 <head>
 	<title>IT World</title>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script src="../Content/JS//init_buy.js"></script>
+	<script src="../Content/JS/init_buy.js"></script>
 	<link rel="stylesheet" href="../Content/CSS/cart.css" />
 </head>
 <body>
+	<a id="back" href="../Pages/Shop.php"><img src="../Content/Pictures/arrow-left.png" width="70px" height="70px"></a>
 	<div style="width:700px; margin:50 auto;">
 		<h2>
 		<?php
@@ -103,16 +105,18 @@
 								</select>
 							</form>
 						</td>
-						<td><?php echo "$".$product["price"]; ?></td>
-						<td><?php echo "$".$product["price"]*$product["quantity"]; ?></td>
+						<td><?php echo $product["price"]; ?></td>
+						<td><?php echo $product["price"]*$product["quantity"]; ?></td>
 					</tr>
 				<?php
 					$total_price += ($product["price"]*$product["quantity"]);
+					
 				}
+				$_SESSION["total_price"] = $total_price; 
 				?>
 					<tr>
 						<td colspan="5" align="right">
-							<strong>Podsumowanie: <?php echo "$".$total_price; ?></strong>
+							<strong>Podsumowanie: <?php echo $total_price; ?></strong>
 						</td>
 					</tr>
 				</tbody>
@@ -126,7 +130,7 @@
 			?>
 		</div>
 		<div style="clear:both;"></div>
-		<div class="message_box" style="margin:10px 0px;">
+		<div class="message">
 		<input type="submit" id="buy" value="Kupuję i płacę">
 		<?php echo $status; ?>
 		</div>
