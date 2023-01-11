@@ -183,7 +183,7 @@ use tFPDF;
 					<p>Cześć ".$username."</p>
 					<p> Dziękujemy za zakup produktów w IT World</p>
 					<br/>
-					<p> ID zamówienia".$ref."</p>
+					<p> identyfikator zamówienia: ".$ref."</p>
 					<p>Na dokonanie wpłaty wyznaczyliśmy 14 dni od daty zakupu</p>
 					<p>Realizacja zamówienia nastąpi po zaksięgowaniu wpłaty</p>
 					<p></p>
@@ -214,7 +214,7 @@ use tFPDF;
 	{
 		public static function ChangePass($email,$password)
 		{
-			require_once "../Scripts/Config.php";
+			require "../Scripts/Config.php";
 
 			if(empty($email) || empty($password)|| is_null($email))
 			{
@@ -351,7 +351,7 @@ use tFPDF;
 		}
 		public static function CheckUser($email) 
 		{
-			require_once "../Scripts/Config.php";
+			require "../Scripts/Config.php";
 			$query="SELECT username FROM users WHERE email = '".$email."'";
     		$query = mysqli_query($link,$query);
     		$task = mysqli_fetch_assoc($query);

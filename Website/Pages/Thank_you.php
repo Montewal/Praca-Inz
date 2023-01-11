@@ -6,7 +6,7 @@
 <head>
     <link rel="icon" type="image/x-icon" href="terminal/pictures/Favicon.ico" />
     <meta charset="UTF-8" /> 
-    <title>Monitoring</title>
+    <title>It World</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="../Content/CSS/menu.css" />
     <link rel="stylesheet" href="../Content/CSS/page.css" />
     <link rel="stylesheet" href="../Content/CSS/toggle-page.css" /> 
-    <script src="../Content/JS/calc.js"></script>
     <script src="../Content/JS/content-pages.js"></script>
 </head>
 <body>
@@ -45,7 +44,7 @@
                     }
                 ?>
                
-                <ul class="menu">   
+                <ul class="menu">
                     <li> <a href="Service.php"> Usługi </a> </li>
                     <li> <a href="Pricing.php"> Cennik </a> </li>
                     <li> <a href="Calculator.php"> Monitoring </a> </li>
@@ -59,49 +58,14 @@
             </header>
         </div>
         <div class="content-2" style="overflow:hidden;">
-            <div class='buttons'>
-                <button class='toggle' name='Monitoring' >Monitoring</button>
-                <button class='toggle' name='Calc-HDD' >Kalkulator HDD</button>
-            </div>
-            <div class='page-toggle'>
-                <div class='Monitoring'>
-                    <div class='margin'></div>
-                    <div class="desc">
-                            <h3>
-                                Kamery przemysłowe IP to nowoczesne urządzenie monitoringowe 
-                                wyposażone we własne adresy sieciowe umożliwiają na żywo przetwarzanie oraz 
-                                transmisję obrazu przez sieć IP.</br></br> Kolejnym atutem jest wideoserwer w który zostały 
-                                wyposażone dzięki którym możliwe jest śledzenie obrazu zdalnie z dowolnego urzadzenia 
-                                podłączonego do sieci lokalnej firmy lub domowej. </br></br>Technologiczne zaawansowanie kamer IP
-                                pozwala na całodobową pracę w trybie dzień/noc oraz analizy obrazu np rozpoznawania ludzkich sylwetek.
-                                </br></br>Polecamy skorzystać z naszego kalkulatora HDD który oblicza przybliżoną wagę pliku z monitoringu.
-                                </br></br> Kamery IP możesz kupić <a href='shop.php'>tutaj</a>
-                            </h3>
-                        </div>
-                </div>
-                <div class='Calc-HDD'>
-                    <div class='margin'></div>
-                    <div class="form-group">
-                        <label for="pxwidth">Szerokość [piksel]</label></br>
-                        <input type="text" id="pxwidth" class="form-style" name="pxwidth"></br>
-                        <label for="pxheight">Wysokość [piksel] :</label></br>
-                        <input type="text" id="pxheight" class="form-style" name="pxheight"></br>
-                        <label for="fps">Ilość klatek na sekundę: [fps]</label></br>
-                        <input type="text" id="fps" class="form-style" name="fps"></br>
-                        <label for="duration-1">Czas trwania: [w sekundach]</label></br>
-                        <input type="text" id="duration-1" class="form-style" name="duration-1"></br>
-                        <input type="button" value="Przelicz" id="calc1sub">
-                        <div id="result1"></div>   
-                    </div>
-                    <div class="form-group">
-                        <label for="bitrate">Bitrate w Megabitach na sekundę [Mb/s]</label></br>
-                        <input type="text" id="bitrate" class="form-style" name="bitrate"></br>
-                        <label for="duration-2">Czas trwania: [w sekundach]</label></br>
-                        <input type="text" id="duration-2" class="form-style" name="duration-2"></br>
-                        <input type="button" value="przelicz" id="calc2sub">
-                        <div id="result2"></div>
-                    </div>
-                </div>
+            <div class="desc">
+                <h2></br></br></br></br>
+                    Dziękujemy za dokonane zakupy </br>
+                    na konto <?php echo $_SESSION["email"]; ?> </br>wysłaliśmy maila potwierdzajacego zakup wraz z fakturą</br></br>
+
+
+                    Pozdrawiamy Zespół IT World
+                </h2>
             </div>
         </div>
         <div class="footer">

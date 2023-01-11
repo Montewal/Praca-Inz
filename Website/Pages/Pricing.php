@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="../Content/CSS/menu.css" />
     <link rel="stylesheet" href="../Content/CSS/page.css" />
     <link rel="stylesheet" href="../Content/CSS/pricing.css" />
+    <style>
+
+    </style>
 </head>
 <body>   
     <div class="section">
@@ -43,11 +46,11 @@
                     }
                 ?>
                
-                <ul class="menu">
-                    <li> <a href="#"> Serwis </a> </li>
-                    <li> <a href="#"> Usługi </a> </li>
-                    <li> <a href="#"> Cennik </a> </li>
-                    <li> <a href="#"> Kontakt </a> </li>
+               <ul class="menu">
+                    <li> <a href="Service.php"> Usługi </a> </li>
+                    <li> <a href="Pricing.php"> Cennik </a> </li>
+                    <li> <a href="Calculator.php"> Monitoring </a> </li>
+
                     <?php
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){}else 
                     {
@@ -57,17 +60,16 @@
                 </ul>         
             </header>
         </div>
-        <div class="content-shop">
+        <div class="content-2" style='height:1700px; overflow-y:hidden;'>
             <div class="content-allign">
                 <div class="content-text">
                     <h1>Cennik dla laptopów</h1>
                     <table class="pricing">
                         <tr><th>Usługa:</th><th>Cena:</th></tr>
-                        <tr><td>Instalacja, reinstalacja oraz aktualizacja systemu operacyjnego Microsoft Windows (8,10,11)<td>130</td></td></tr>
+                        <tr><td>Instalacja, reinstalacja oraz aktualizacja systemu operacyjnego Microsoft Windows (8,10,11)</td><td>130</td></tr>
                         <tr><td>Instalacja, reinstalacja systemu Mac Os</td><td>170</td></tr>
                         <tr><td>Odzyskiwanie danych</td><td>170</td></tr>
-                        <tr><td>Formatowanie dysku, ustawienie partycji<td>70</td></td></tr>
-                        <tr><td>Instalacja pojedyńczego programu<td>30</td></td></tr>
+                        <tr><td>Formatowanie dysku, ustawienie partycji</td><td>70</td></tr>
                         <tr><td>Instalacja sterowników</td><td>60</td></tr>
                         <tr><td>Reballing, wymiana układu BGA</td><td>400</td></tr>
                         <tr><td>Optymalizacja, naprawa systemu Windows</td><td>100</td></tr>
@@ -75,31 +77,28 @@
                         <tr><td>Wymiana klawiatury</td><td>70</td></tr>
                         <tr><td>Wymiana zawiasów</td><td>90</td></tr>
                         <tr><td>Wymiana gniazda zasilającego</td><td>110</td></tr>
-                        <tr><td>Wymiana kabla coaxialnego/ LCD</td><td>90</td></tr>
                         <tr><td>Wymiana DVD</td><td>30</td></tr>
                         <tr><td>Wymiana, naprawa obudowy</td><td>120</td></tr>
                         <tr><td>Wymiana touchpada</td><td>90</td></tr>
-                        <tr><td>Wymiana płyty głównej</td><td>170</td></tr>
-                        <tr><td>Naprawa płyty głównej</td><td>220</td></tr>
-                        <tr><td>Naprawa gniazda USB,LAN,AUDIO,VGA</td><td>140</td></tr>
-                        <tr><td>Rozbudowa / wymiana pamięci RAM</td><td>50</td></tr>
+                        <tr><td>Naprawa/wymiana płyty głównej</td><td>220/140</td></tr>
+                        <tr><td>Naprawa gniazda USB, LAN, AUDIO, VGA</td><td>140</td></tr>
+                        <tr><td>Rozbudowa/wymiana pamięci RAM</td><td>50</td></tr>
                         <tr><td>Aktualizacja BIOS</td><td>80</td></tr>
                         <tr><td>Wymiana baterii BIOS</td><td>60</td></tr>
                         <tr><td>Usuwanie wirusów lub zbędnego oprogramowania</td><td>110</td></tr>
-                        <tr><td>Czyszczenie z kurzu i brudu</td><td>90</td></tr>
                         <tr><td>Czyszczenie z kurzu i brudu, wymiana pasty termoprzewodzącej</td><td>140</td></tr>
                         <tr><td>Czyszczenie laptopa po zalaniu</td><td>190</td></tr>
                     </table>
                 </div>
             </div>
         </div>
-        <div class="content-shop">
+        <div class="content-2" style='height:1700px; overflow-y:hidden;'>
             <div class="content-allign">
                 <div class="content-text">
                     <h1>Cennik dla komputerów stacjonarnych</h1>
                     <table class="pricing">
                         <tr><th>Usługa:</th><th>Cena:</th></tr>
-                        <tr><td>Instalacja, reinstalacja oraz aktualizacja systemu operacyjnego Microsoft Windows (8,10,11)</td><td>130</td></tr>
+                        <tr><td>Instalacja, reinstalacja oraz aktualizacja systemu operacyjnego Microsoft Windows (8, 10, 11)</td><td>130</td></tr>
                         <tr><td>Odzyskiwanie danych</td><td>170</td></tr>
                         <tr><td>Instalacja pojedyńczego programu</td><td>30</td></tr>
                         <tr><td>Formatowanie dysku, ustawienie partycji</td><td>60</td></tr>
@@ -109,12 +108,11 @@
                         <tr><td>Wymiana podzespołów</td><td>60</td></tr>
                         <tr><td>Wymiana płyty głównej</td><td>150</td></tr>
                         <tr><td>Wymiana obudowy</td><td>160</td></tr>
-                        <tr><td>Naprawa gniazda USB,LAN,AUDIO,VGA</td><td>110</td></tr>
-                        <tr><td>Rozbudowa / wymiana pamięci RAM</td><td>40</td></tr>
+                        <tr><td>Naprawa gniazda USB, LAN, AUDIO, VGA</td><td>110</td></tr>
+                        <tr><td>Rozbudowa/wymiana pamięci RAM</td><td>40</td></tr>
                         <tr><td>Aktualizacja BIOS</td><td>80</td></tr>
                         <tr><td>Wymiana bateri BIOS</td><td>50</td></tr>
                         <tr><td>Usuwanie wirusów lub zbędnego oprogramowania</td><td>100</td></tr>
-                        <tr><td>Czyszczenie z kurzu i brudu</td><td>80</td></tr>
                         <tr><td>Czyszczenie z kurzu i brudu, wymiana pasty termoprzewodzącej</td><td>140</td></tr>
                     </table>
                 </div>

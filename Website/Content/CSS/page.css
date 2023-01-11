@@ -17,7 +17,17 @@
     padding: 0;
     width: 100%;
     min-height: 600px;
-    background-image: url(https://images.alphacoders.com/105/1056771.jpg);
+    background-image: url(https://cdn.pixabay.com/photo/2022/05/02/22/24/brain-7170502_960_720.jpg);
+    background-repeat: no-repeat;
+    background-size: cover ; 
+    z-index: 0;
+}
+.sub-title {  
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 600px;
+    background-image: url(https://cdn.pixabay.com/photo/2018/05/23/13/29/network-3424070_960_720.jpg);
     background-repeat: no-repeat;
     background-size: cover ; 
     z-index: 0;
@@ -46,6 +56,17 @@ h1 {
     line-height: 50px;
     color: white;
 }
+h3 {
+    -webkit-text-stroke: 1px black; /* width and color */
+    font-family:Verdana, Geneva, Tahoma, sans-serif; color: white;
+    font-size: 20px;
+    line-height: 30px;
+    color: black;
+}
+h3 a{
+    color: #007bff;
+    -webkit-text-stroke: 1px  #007bff;
+}
 .content {
     margin: 0;
     padding: 0;
@@ -53,32 +74,50 @@ h1 {
     min-height: 600px;
     background-color: #fff;
 }
-.content-shop {
+.content-2 {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 1100px;
     background-color: #fff;
-    overflow-x: auto;
+    overflow-x: hidden;
 }
 .content-allign {
     width: 1200px;
     height: 600px;
-    margin:0 auto;
+    margin-left: 10%;
     text-align: left;
 }
 .content-text {
+    
     width: 1000px;
-    max-height: 600px;
-    font-size: 1.6em;
-    padding: 3em;
+    min-height: 600px;
+    font-size: 1.3em;
+    padding: 1.5em;
     inline-size: 400px;
-    line-height: 1em;
+    line-height: 1.5em;
 }
+.content-text .pricing{
+    inline-size: 400px ;
+}
+p{
+    font-size: 20px;
+    line-height: 1em;
+    inline-size: 400px;
+}
+.index-img{
+    margin-left: 30px;
+}
+.index-img img{
+    border: 8px solid white;
+    border-style: hidden solid solid solid;
+    border-radius: 35%;
+}
+
 .footer {
     margin-top: auto;
     width: 100%;
-    height: 160px;
+    height: 170px;
     background-color: rgba(184, 184, 184, 0.673);
     color: black;
 }
@@ -86,11 +125,41 @@ h1 {
     padding: 10px 0 0 200px ;
     margin-bottom: 0;
 }
+ul.maintenance {
+    list-style-image: url('../Pictures/tick.svg');
+}
+.desc {
+    height: 10em;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+.desc h3, h6{
+    padding: 20px;
+    background-color: #fff;
+    inline-size: 500px;
+    margin: 700px 0 0 0 
+}
 @media (min-width: 60em) {
     .content-text {
+        inline-size: 1000px !important;
+        
+    }
+    p {
+        font-size: 30px;
+        padding: 5px;
+        inline-size: 750px
+    }
+    .pricing{
         inline-size: 1000px !important;
     }
     .pages {
         inline-size: 1000px !important;
+    }
+    .desc h3{
+        inline-size: 500px !important;
+    }
+    h3 {
+        inline-size: 600px;
     }
 }

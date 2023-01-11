@@ -84,7 +84,7 @@ else {
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../Content/CSS/display_login.css" /> 
+    <link rel="stylesheet" href="../Content/CSS/login-system.css" /> 
 </head>
 <body>
     <div class="back">    </div> 
@@ -94,21 +94,7 @@ else {
                     <div class="formbackground">
                         <div class="form">
                             <div class="insideform">
-                            <h4>Zaloguj się do IT World</h4>
-                            <?php
-                            if(!empty($login_err))
-                            {
-                                echo '<div class="alert alert-danger">' . $login_err . '</div>';
-                            }
-                            if(!empty($status_err))
-                            {
-                                echo '<div class="alert alert-danger">' . $status_err . '</div>';
-                            }
-                            if(!empty($status2_err))
-                            {
-                                echo '<div class="alert alert-danger">' . $status2_err . '</div>';
-                            }
-                            ?>
+                            <h3>Zaloguj się do IT World</h3>
                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="searchform">
                                 <div class="form-group">
                                     <input type="text" name="username" placeholder="Wpisz nazwę użytkownika" class="form-style <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>" />

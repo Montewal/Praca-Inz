@@ -99,7 +99,7 @@
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../Content/CSS/display_login.css" /> 
+    <link rel="stylesheet" href="../Content/CSS/login-system.css" /> 
 </head>
 <body>
 <div class="back"></div> 
@@ -109,7 +109,8 @@
                     <div class="formbackgroundreg">
                         <div class="form">
                             <div class="insideform">
-                            <h4>Zarejestruj konto w IT World</h4>
+                            <h3>Zarejestruj konto w IT World</h3>
+                            
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                             <div class="form-group">
                                 <input type="text" name="username" placeholder="Wpisz nazwę użytkownika" class="form-style <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
@@ -130,12 +131,12 @@
                                 <br/>
                             </div>
                             <div class="form-group">
-                                <input type="submit" class="btn btn-primary" value="Zarejestruj się">
-                                <input type="reset" class="btn btn-secondary ml-2" value="Resetuj">
+                                <input type="submit" class="btn" value="Zarejestruj się">
+                                <input type="reset" class="btn" value="Resetuj">
                                 <p>Masz już konto? zaloguj się <a href="Login.php">tutaj</a>.</p>
                                 </br>
                             </div>   
-                        </form>
+                            </form>
                         </div>
                     </div> 
                 </div>                       

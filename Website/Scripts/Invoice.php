@@ -9,5 +9,5 @@ Database::AddOrder_details($ref);
 Generate::Invoice($ref);
 Mail::SendConfirmation($ref);
 unset($_SESSION['cart']);
-header("location: ../../index.php");
+header("location: ../Pages/Thank_you.php");
 ?>

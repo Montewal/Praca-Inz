@@ -4,6 +4,11 @@ session_start();
 error_reporting(~E_WARNING & ~E_NOTICE);
 require_once "../Scripts/Config.php";
 
+if(isset($_POST["turn"]))
+{   
+    $_SESSION["page"] = $_POST['turn'];
+}
+
 $status="";
 if(isset($_POST["tag"])&& $_POST['tag']!="" )
 {
@@ -91,11 +96,11 @@ if(isset($_POST["tag"])&& $_POST['tag']!="" )
                     }
                 ?>
                
-                <ul class="menu">
-                    <li> <a href="#"> Serwis </a> </li>
-                    <li> <a href="#"> Usługi </a> </li>
-                    <li> <a href="#"> Cennik </a> </li>
-                    <li> <a href="#"> Kontakt </a> </li>
+               <ul class="menu">
+                    <li> <a href="Service.php"> Usługi </a> </li>
+                    <li> <a href="Pricing.php"> Cennik </a> </li>
+                    <li> <a href="Calculator.php"> Monitoring </a> </li>
+
                     <?php
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){}else 
                     {
@@ -105,9 +110,9 @@ if(isset($_POST["tag"])&& $_POST['tag']!="" )
                 </ul>         
             </header>
         </div>
-        <div class="content-shop">
+        <div class="content-2" style='overflow-x: auto;'>
             <div class="content-allign">
-                <div class="content-text">   
+                <div class="content-text" style='margin-left:20%;'>   
                     <?php
                     if(!empty($_SESSION["cart"])) 
                     {
@@ -161,21 +166,27 @@ if(isset($_POST["tag"])&& $_POST['tag']!="" )
                     echo "</div>";
                     ?>
                     <div style="clear:both;"></div>
+                    <input type="hidden" class='current-page' value="<?php echo $_SESSION["page"] ;?>">
                     <div class="message">
                         <?php echo $status; ?>
                     </div>
+                        
                     <div>
+                              
                     <?php
+                    echo "<table><tr>";
                     for($page_nr = 0; $page_nr <= 10; $page_nr++)
                     {
                         $page = array_slice($results,(12 * $page_nr),12);
                         if(!empty($page))
                         {                                
-                            echo "<button class='turn' value='$page_nr'>$page_nr</button>";
+                            echo "<td><form method='post' action=''><button type='submit' class='turn' name='turn' value='$page_nr'>$page_nr</button></form></td>";
                         }
                     }
+                    echo "</tr></table>";
                     mysqli_close($link);
                     ?>
+                    
                     </div>
                 </div>
             </div>

@@ -43,10 +43,9 @@
                 ?>
                
                 <ul class="menu">
-                    <li> <a href="#"> Serwis </a> </li>
-                    <li> <a href="#"> Usługi </a> </li>
+                    <li> <a href="Website/Pages/Service.php"> Usługi </a> </li>
                     <li> <a href="Website/Pages/Pricing.php"> Cennik </a> </li>
-                    <li> <a href="#"> Kontakt </a> </li>
+                    <li> <a href="Website/Pages/Calculator.php">Monitoring </a> </li>
                     <?php
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){}else 
                     {
@@ -70,7 +69,7 @@
                 <div class="content-text">
                    <p>Usługi Informatyczne z ofertą dla firm i indywidualnych klientów</p>
                     </br>
-                    <p>Jesteśmy firmą powstałą z pasji do techologii z siedzibą we Wrocławiu. Nasza oferta zawiera szeroki zakres usług informatycznych dostarczanych w wysokiej jakości przez profesjonalny zespół</p>
+                    <p>Jesteśmy firmą powstałą z pasji do technologii z siedzibą we Wrocławiu. Nasza oferta zawiera szeroki zakres usług informatycznych dostarczanych w wysokiej jakości przez profesjonalny zespół</p>
                     </br>
                     <p>Możesz nam zaufać gdy potrzebujesz kompleksowaj naprawy laptopów i komputerów . Nasz zaspół zawsze stanie na wysokości zadania</p>
                     </br>
@@ -78,13 +77,19 @@
                 </div>
             </div>
         </div>
-        <div class="title">
-                    <div class="page">
-                        <div class="page-description">
-                            <h1>Czym się zajmujemy</h1></br>
-                        </div>
-                    </div>
+        <div class="sub-title">
+            <div class="page">
+                <div class="page-description">
+                    <h1>Czym się zajmujemy?</h1></br></br>
+                    <table class='index-img'>
+                        <tr>
+                        <td><a href='Website/Pages/Service.php'><img class='index-img' src="Website/Content/Pictures/clint-patterson-yGPxCYPS8H4-unsplash.jpg" width='300px' height='300px'></a></td>
+                        <td><a href='Website/Pages/Calculator.php'><img class='index-img' src="Website/Content/Pictures/tobias-tullius-4dKy7d3lkKM-unsplash.jpg" width='300px' height='300px'></a></td>
+                        </tr>
+                    </table>
                 </div>
+            </div>
+        </div>
         <div class="footer">
             <div class="footer-allign">
                 <p><b>Kontakt</b></p>

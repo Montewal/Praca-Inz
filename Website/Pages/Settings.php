@@ -1,12 +1,65 @@
 <?php
     session_start();
+    require_once "../Scripts/Config.php";
+    $password = $confirmation = $confirm_password = "";
+    $password_err = $confirm_password_err = "";
+    if($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        if(empty(trim($_POST["password"])))
+        {
+            $password_err = "Please enter a password.";
+        } 
+        elseif(strlen(trim($_POST["password"])) < 8)
+        {
+            $password_err = "Password must have atleast 8 characters.";
+        } 
+        else
+        {
+            $password = trim($_POST["password"]);
+        }
+
+        if(empty(trim($_POST["confirm_password"])))
+        {
+            $confirm_password_err = "Please confirm password.";
+        } 
+        else
+        {
+            $confirm_password = trim($_POST["confirm_password"]);
+            if(empty($password_err) && ($password != $confirm_password))
+            {
+                $confirm_password_err = "Password did not match.";
+            }
+        }
+
+        if(empty($password_err) && empty($confirm_password_err))
+        {
+            $sql = "update users set password = ? where email = ?";
+            if($stmt = mysqli_prepare($link, $sql))
+            {
+                $stmt->bind_param("ss", $param_email, $param_password);
+                $param_email = $_SESSION["username"];
+                $param_password = password_hash($password, PASSWORD_DEFAULT);
+                if($stmt->execute())
+                {
+                    $confirmation = "Hasło pomyślnie zmienione";
+                    header("location: Settings.php");
+                } 
+                else
+                {
+                    echo "Oops! $link->error";
+                }
+                $stmt->close();
+            }
+        }
+        $link->close();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="terminal/pictures/Favicon.ico" />
     <meta charset="UTF-8" /> 
-    <title>Monitoring</title>
+    <title>IT World</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -14,7 +67,6 @@
     <link rel="stylesheet" href="../Content/CSS/menu.css" />
     <link rel="stylesheet" href="../Content/CSS/page.css" />
     <link rel="stylesheet" href="../Content/CSS/toggle-page.css" /> 
-    <script src="../Content/JS/calc.js"></script>
     <script src="../Content/JS/content-pages.js"></script>
 </head>
 <body>
@@ -45,7 +97,7 @@
                     }
                 ?>
                
-                <ul class="menu">   
+                <ul class="menu">
                     <li> <a href="Service.php"> Usługi </a> </li>
                     <li> <a href="Pricing.php"> Cennik </a> </li>
                     <li> <a href="Calculator.php"> Monitoring </a> </li>
@@ -58,51 +110,20 @@
                 </ul>         
             </header>
         </div>
-        <div class="content-2" style="overflow:hidden;">
-            <div class='buttons'>
-                <button class='toggle' name='Monitoring' >Monitoring</button>
-                <button class='toggle' name='Calc-HDD' >Kalkulator HDD</button>
-            </div>
-            <div class='page-toggle'>
-                <div class='Monitoring'>
-                    <div class='margin'></div>
-                    <div class="desc">
-                            <h3>
-                                Kamery przemysłowe IP to nowoczesne urządzenie monitoringowe 
-                                wyposażone we własne adresy sieciowe umożliwiają na żywo przetwarzanie oraz 
-                                transmisję obrazu przez sieć IP.</br></br> Kolejnym atutem jest wideoserwer w który zostały 
-                                wyposażone dzięki którym możliwe jest śledzenie obrazu zdalnie z dowolnego urzadzenia 
-                                podłączonego do sieci lokalnej firmy lub domowej. </br></br>Technologiczne zaawansowanie kamer IP
-                                pozwala na całodobową pracę w trybie dzień/noc oraz analizy obrazu np rozpoznawania ludzkich sylwetek.
-                                </br></br>Polecamy skorzystać z naszego kalkulatora HDD który oblicza przybliżoną wagę pliku z monitoringu.
-                                </br></br> Kamery IP możesz kupić <a href='shop.php'>tutaj</a>
-                            </h3>
-                        </div>
-                </div>
-                <div class='Calc-HDD'>
-                    <div class='margin'></div>
+        <div class="content-2">
+            <div class='margin'></div>     
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">          
                     <div class="form-group">
-                        <label for="pxwidth">Szerokość [piksel]</label></br>
-                        <input type="text" id="pxwidth" class="form-style" name="pxwidth"></br>
-                        <label for="pxheight">Wysokość [piksel] :</label></br>
-                        <input type="text" id="pxheight" class="form-style" name="pxheight"></br>
-                        <label for="fps">Ilość klatek na sekundę: [fps]</label></br>
-                        <input type="text" id="fps" class="form-style" name="fps"></br>
-                        <label for="duration-1">Czas trwania: [w sekundach]</label></br>
-                        <input type="text" id="duration-1" class="form-style" name="duration-1"></br>
-                        <input type="button" value="Przelicz" id="calc1sub">
-                        <div id="result1"></div>   
-                    </div>
-                    <div class="form-group">
-                        <label for="bitrate">Bitrate w Megabitach na sekundę [Mb/s]</label></br>
-                        <input type="text" id="bitrate" class="form-style" name="bitrate"></br>
-                        <label for="duration-2">Czas trwania: [w sekundach]</label></br>
-                        <input type="text" id="duration-2" class="form-style" name="duration-2"></br>
-                        <input type="button" value="przelicz" id="calc2sub">
-                        <div id="result2"></div>
-                    </div>
-                </div>
-            </div>
+                    <h3>Zmień hasło</h3></br>
+                        <input type="password" name="password"  placeholder="Wpisz hasło" class="form-style <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                        <span class="invalid-feedback"><?php echo $password_err; ?></span></br></br>
+                        <input type="password" name="confirm_password" placeholder="Potwierdź hasło" class="form-style <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+                        <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span></br></br>
+                        <input type="submit" class="btn btn-primary" value="Wyślij">
+                        <span class="success-feedback"><?php echo $confirmation; ?></span>
+                        </br>
+                    </div>   
+                </form>
         </div>
         <div class="footer">
             <div class="footer-allign">

@@ -1,4 +1,4 @@
-﻿h4 {
+﻿h3 {
     font-weight: 600;
     color: #3a3845;
     margin-bottom: 10%;
@@ -15,7 +15,7 @@
     height: 100%;
     background-image: 
             linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-            url(https://images.alphacoders.com/105/1056771.jpg);
+            url(https://cdn.pixabay.com/photo/2022/05/02/22/24/brain-7170502_960_720.jpg);
     background-repeat: no-repeat;
     background-size: cover ;
     filter: brightness(10%);
@@ -38,10 +38,10 @@
     left: 0;
     top: 0;
     background-color: #f1eef5;   
-    background-image: url('https://st4.depositphotos.com/1000423/28312/i/450/depositphotos_283125604-stock-photo-the-concept-of-crypto-currency.jpg');
+    background-image: url('https://cdn.pixabay.com/photo/2017/03/23/12/56/security-2168233_960_720.jpg');
     background-position: right center;
     background-repeat: no-repeat;
-    background-size: 80%;
+    background-size: 70%;
     z-index: 3;
 }
 .formbackgroundreg {
@@ -52,7 +52,7 @@
   left: 0;
   top: 0;
   background-color: #f1eef5;   
-  background-image: url('https://static9.depositphotos.com/1000128/1130/i/450/depositphotos_11308826-stock-photo-server-room-interior.jpg');
+  background-image: url('https://images.unsplash.com/photo-1571786256017-aee7a0c009b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80');
   background-position: right center;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -72,11 +72,6 @@
     height: 550px;
     margin-top: 4%;
     
-}
-@media (min-width: 80em) {
-  .allign{
-    position: fixed !important;
-  }
 }
 .form {
     width: 50%;
@@ -145,7 +140,7 @@
 
 .btn {
     margin-bottom: 5%;
-    border-radius: 4px;
+    border-radius: 20px;
     height: 44px;
     font-size: 13px;
     font-weight: 600;
@@ -157,7 +152,6 @@
     background-color: #cfbf8b;
     color: #353145;
     border: #ffeba7 0.5px solid;
-    border-radius: 20px;
     box-shadow: 0 4px 8px 0 rgba(21,21,21,.5);
 }
 
@@ -206,3 +200,8 @@
         box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
         cursor:pointer;
     }
+@media (min-width: 80em) {
+.allign{
+    position: fixed !important;
+}
+}

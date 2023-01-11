@@ -105,8 +105,8 @@
 								</select>
 							</form>
 						</td>
-						<td><?php echo $product["price"]; ?></td>
-						<td><?php echo $product["price"]*$product["quantity"]; ?></td>
+						<td><?php echo $product["price"]."zł"; ?></td>
+						<td><?php echo sprintf("%.2f",$product["price"]*$product["quantity"])."zł"; ?></td>
 					</tr>
 				<?php
 					$total_price += ($product["price"]*$product["quantity"]);
@@ -116,7 +116,7 @@
 				?>
 					<tr>
 						<td colspan="5" align="right">
-							<strong>Podsumowanie: <?php echo $total_price; ?></strong>
+							<strong>Podsumowanie: <?php echo sprintf("%.2f",$total_price)."zł"; ?></strong>
 						</td>
 					</tr>
 				</tbody>
@@ -131,7 +131,10 @@
 		</div>
 		<div style="clear:both;"></div>
 		<div class="message">
-		<input type="submit" id="buy" value="Kupuję i płacę">
+		<?php
+			if(!empty($_SESSION["cart"]))
+				echo "<input type='submit' id='buy' value='Kupuję i płacę'>";
+		?>
 		<?php echo $status; ?>
 		</div>
 	</div>

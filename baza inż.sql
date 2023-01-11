@@ -29,9 +29,15 @@ CREATE TABLE order_details (
     FOREIGN KEY (orderID) REFERENCES orders(id),
     FOREIGN KEY (productID) REFERENCES products(id)	
 );
+CREATE USER 'customer_service'@'localhost' IDENTIFIED BY 'qwe123rty456';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY '1p48A48*K#';
+grant all on IT_World.users to 'admin'@'localhost';
+grant all on IT_World.orders to 'admin'@'localhost';
+grant all on IT_World.order_details to 'admin'@'localhost';
+grant all on IT_World.products to 'admin'@'localhost';
 grant select, insert, update on IT_World.users to 'customer_service'@'localhost';
-grant select, insert, update on IT_World.orders to 'customer_service'@'localhost';
-grant select, insert, update on IT_World.order_details to 'customer_service'@'localhost';
+grant select, insert on IT_World.orders to 'customer_service'@'localhost';
+grant select, insert on IT_World.order_details to 'customer_service'@'localhost';
 flush privileges;
 INSERT INTO products (id, name, price, tag, img) VALUES 
 (1, 'Intel Core i5-10400', 549.00, 'i5-10th', '../Content/Pictures/i5.jpg'),
