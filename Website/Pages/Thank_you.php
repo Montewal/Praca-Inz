@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="terminal/pictures/Favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../Content/Pictures/world.png" />
     <meta charset="UTF-8" /> 
     <title>It World</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -47,7 +47,7 @@
                 <ul class="menu">
                     <li> <a href="Service.php"> Usługi </a> </li>
                     <li> <a href="Pricing.php"> Cennik </a> </li>
-                    <li> <a href="Calculator.php"> Monitoring </a> </li>
+                    <li> <a href="Monitoring.php"> Monitoring </a> </li>
                     <?php
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){}else 
                     {
@@ -59,11 +59,11 @@
         </div>
         <div class="content-2" style="overflow:hidden;">
             <div class="desc">
-                <h2></br></br></br></br>
+                <h2>
+                    </br></br></br></br>
                     Dziękujemy za dokonane zakupy </br>
-                    na konto <?php echo $_SESSION["email"]; ?> </br>wysłaliśmy maila potwierdzajacego zakup wraz z fakturą</br></br>
-
-
+                    na konto <?php echo $_SESSION["email"]; ?> </br>wysłaliśmy maila potwierdzajacego zakup wraz z fakturą
+                    </br></br>
                     Pozdrawiamy Zespół IT World
                 </h2>
             </div>

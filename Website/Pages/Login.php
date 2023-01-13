@@ -29,18 +29,18 @@ else {
         }
         if(empty($username_err) && empty($password_err))
         {
-            $sql = "SELECT id, username, email, password FROM users WHERE username = ?";
-            if($stmt = mysqli_prepare($link, $sql))
+            $query = "SELECT id, username, email, password FROM users WHERE username = ?";
+            if($task = mysqli_prepare($link, $query))
             {
-                mysqli_stmt_bind_param($stmt, "s", $param_username);
-                $param_username = $username;
-                if(mysqli_stmt_execute($stmt))
+                mysqli_stmt_bind_param($task, "s", $bind_username);
+                $bind_username = $username;
+                if(mysqli_stmt_execute($task))
                 {
-                    mysqli_stmt_store_result($stmt);
-                    if(mysqli_stmt_num_rows($stmt) == 1)
+                    mysqli_stmt_store_result($task);
+                    if(mysqli_stmt_num_rows($task) == 1)
                     {
-                        mysqli_stmt_bind_result($stmt, $id, $username, $email, $hashed_password);
-                        if(mysqli_stmt_fetch($stmt))
+                        mysqli_stmt_bind_result($task, $id, $username, $email, $hashed_password);
+                        if(mysqli_stmt_fetch($task))
                         {
                             if(password_verify($password, $hashed_password))
                             {
@@ -68,7 +68,7 @@ else {
                 {
                     echo "Oops! Something went wrong. Please try again later.";
                 }
-                mysqli_stmt_close($stmt);
+                mysqli_stmt_close($task);
             }
         }
         mysqli_close($link);

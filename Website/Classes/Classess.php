@@ -92,18 +92,16 @@ use tFPDF;
 			$pdf->Cell(30 ,3,'',0,1);
 			$pdf->Cell(10 ,7,'Razem do Zapłaty: '.sprintf("%.2f", $total_price).' zł',0,1);
 			$pdf->SetFont('Times','',10);
-			$pdf->Cell(10 ,5,'Kwota słownie: '.Generate::numberToText($total_price).' złotych',0,1);
+			$pdf->Cell(10 ,5,'Kwota słownie: '.Generate::NumberToText($total_price).' złotych',0,1);
 			$pdf->Output("F", "../../Invoice/".$ref.".pdf");
 		}
-		public static function numberToText($liczba) 
+		public static function NumberToText($num) 
 		{
-			
-			$separator = ' ';
-			$jednosci = array('', ' jeden', ' dwa', ' trzy', ' cztery', ' pięć', ' sześć', ' siedem', ' osiem', ' dziewięć');
-			$nascie = array('', ' jedenaście', ' dwanaście', ' trzynaście', ' czternaście', ' piętnaście', ' szesnaście', ' siedemnaście', ' osiemnaście', ' dziewietnaście');
-			$dziesiatki = array('', ' dziesieć', ' dwadzieścia', ' trzydzieści', ' czterdzieści', ' pięćdziesiąt', ' sześćdziesiąt', ' siedemdziesiąt', ' osiemdziesiąt', ' dziewięćdziesiąt');
-			$setki  = array('', ' sto', ' dwieście', ' trzysta', ' czterysta', ' pięćset', ' sześćset', ' siedemset', ' osiemset', ' dziewięćset');
-			$grupy = array(
+			$unit = array('', ' jeden', ' dwa', ' trzy', ' cztery', ' pięć', ' sześć', ' siedem', ' osiem', ' dziewięć');
+			$unit_addon = array('', ' jedenaście', ' dwanaście', ' trzynaście', ' czternaście', ' piętnaście', ' szesnaście', ' siedemnaście', ' osiemnaście', ' dziewietnaście');
+			$tens = array('', ' dziesieć', ' dwadzieścia', ' trzydzieści', ' czterdzieści', ' pięćdziesiąt', ' sześćdziesiąt', ' siedemdziesiąt', ' osiemdziesiąt', ' dziewięćdziesiąt');
+			$hundreds  = array('', ' sto', ' dwieście', ' trzysta', ' czterysta', ' pięćset', ' sześćset', ' siedemset', ' osiemset', ' dziewięćset');
+			$groups = array(
 				array('' ,'' ,''),
 				array(' tysiąc' ,' tysiące' ,' tysięcy'),
 				array(' milion' ,' miliony' ,' milionów'),
@@ -113,42 +111,42 @@ use tFPDF;
 				array(' trylion',' tryliony',' trylionów')
 			);
 		
-			$wynik = ''; $znak = '';
-			if ($liczba == 0)
+			$result = ''; $char = '';
+			if ($num == 0)
 				return 'zero';
-			if ($liczba < 0) 
+			if ($num < 0) 
 			{
-				$znak = 'minus';
-				$liczba = -$liczba;
+				$char = 'minus';
+				$num = -$num;
 			}
 			$g = 0;
-			while ($liczba > 0) {
+			while ($num > 0) {
 		
 		
-				$s = floor(($liczba % 1000)/100);
-				$n = 0;
-				$d = floor(($liczba % 100)/10);
-				$j = floor($liczba % 10);
+				$h = floor(($num % 1000)/100);
+				$ua = 0;
+				$t = floor(($num % 100)/10);
+				$u = floor($num % 10);
 		
 		
-				if ($d == 1 && $j>0) {
-					$n = $j;
-					$d = $j = 0;
+				if ($t == 1 && $u>0) {
+					$ua = $u;
+					$t = $u = 0;
 				}
 		
-				$k = 2;
-				if ($j == 1 && $s+$d+$n == 0)
-					$k = 0;
-				if ($j == 2 || $j == 3 || $j == 4)
-					$k = 1;
+				$i = 2;
+				if ($u == 1 && $h+$t+$ua == 0)
+					$i = 0;
+				if ($u == 2 || $u == 3 || $u == 4)
+					$i = 1;
 		
-				if ($s+$d+$n+$j > 0)
-					$wynik = $setki[$s].$dziesiatki[$d].$nascie[$n].$jednosci[$j].$grupy[$g][$k].$wynik;
+				if ($h+$t+$ua+$u > 0)
+					$result = $hundreds[$h].$tens[$t].$unit_addon[$ua].$unit[$u].$groups[$g][$i].$result;
 		
 				$g++;
-				$liczba = floor($liczba/1000);
+				$num = floor($num/1000);
 			}
-			return trim($znak.$wynik);
+			return trim($char.$result);
 		}	
 	}
 	class Mail 
@@ -166,7 +164,7 @@ use tFPDF;
 				$username = $_SESSION["username"];
 				$email = $_SESSION["email"];
 				$name = "noreply@IT_World";
-				$subject = '=?UTF-8?B?'.base64_encode("Potwierdzenie Zamówienia").'?=';
+				$hubject = '=?UTF-8?B?'.base64_encode("Potwierdzenie Zamówienia").'?=';
 				$message = 
 				"<!DOCTYPE html>
 				<html lang='pl'>
@@ -204,7 +202,7 @@ use tFPDF;
 				$mail->IsHTML(true);
 				$mail->setFrom($email, $name);
 				$mail->addAddress($email, "@NoReply");
-				$mail->Subject = $subject;
+				$mail->Subject = $hubject;
 				$mail->Body = $message;
 				$mail->send(); 
 			}
@@ -220,13 +218,13 @@ use tFPDF;
 			{
 				return false;
 			} 	
-				$sql = "SELECT email FROM users WHERE email = '$email'";
-				if($stmt = mysqli_prepare($link, $sql))
+				$query = "SELECT email FROM users WHERE email = '$email'";
+				if($task = mysqli_prepare($link, $query))
 				{
-					if($stmt->execute())
+					if($task->execute())
 					{
-						$stmt->store_result();
-						if($stmt->num_rows == 1)
+						$task->store_result();
+						if($task->num_rows == 1)
 						{
 							$value = $email;
 						} 
@@ -240,20 +238,20 @@ use tFPDF;
 					{
 						echo "Oops! Something went wrong. Please try again later. pierwsze";
 					}
-					$stmt->close();
+					$task->close();
 				}
 			 
 			if(!empty($value) || is_null($value))
 			{
-				$sql = "UPDATE users
+				$query = "UPDATE users
 				SET password = ?
 				WHERE email = ?";
-				if($stmt = mysqli_prepare($link, $sql))
+				if($task = mysqli_prepare($link, $query))
 				{
-					$stmt->bind_param("ss", $param_password, $param_email);
-					$param_email = $value;
-					$param_password = password_hash($password, PASSWORD_DEFAULT);
-					if($stmt->execute())
+					$task->bind_param("ss", $bind_password, $bind_email);
+					$bind_email = $value;
+					$bind_password = password_hash($password, PASSWORD_DEFAULT);
+					if($task->execute())
 					{
 						header("location: ../Pages/Login.php");
 					} 
@@ -261,7 +259,61 @@ use tFPDF;
 					{
 						echo "Oops! $link->error";
 					}
-					$stmt->close();
+					$task->close();
+				}
+			}
+			$link->close();
+		}
+		public static function ChangePassForLoggedUser($email,$password)
+		{
+			require "../Scripts/Config.php";
+
+			if(empty($email) || empty($password)|| is_null($email))
+			{
+				return false;
+			} 	
+				$query = "SELECT email FROM users WHERE email = '$email'";
+				if($task = mysqli_prepare($link, $query))
+				{
+					if($task->execute())
+					{
+						$task->store_result();
+						if($task->num_rows == 1)
+						{
+							$value = $email;
+						} 
+						else
+						{
+							echo "email not found";
+							return false;
+						}
+					} 
+					else
+					{
+						echo "Oops! Something went wrong. Please try again later. pierwsze";
+					}
+					$task->close();
+				}
+			 
+			if(!empty($value) || is_null($value))
+			{
+				$query = "UPDATE users
+				SET password = ?
+				WHERE email = ?";
+				if($task = mysqli_prepare($link, $query))
+				{
+					$task->bind_param("ss", $bind_password, $bind_email);
+					$bind_email = $value;
+					$bind_password = password_hash($password, PASSWORD_DEFAULT);
+					if($task->execute())
+					{
+						
+					} 
+					else
+					{
+						echo "Oops! $link->error";
+					}
+					$task->close();
 				}
 			}
 			$link->close();
@@ -276,15 +328,15 @@ use tFPDF;
 			}
 			else 
 			{	
-				$sql = "INSERT INTO orders (invoice, userid, price, status) VALUES (?, ?, ?, ?)";
-				if($stmt = mysqli_prepare($link, $sql))
+				$query = "INSERT INTO orders (invoice, userid, price, status) VALUES (?, ?, ?, ?)";
+				if($task = mysqli_prepare($link, $query))
 				{
-					$stmt->bind_param("siss", $param_invoice, $param_userid, $param_price, $param_status);
-					$param_invoice = $ref;
-					$param_userid = $_SESSION["userId"];
-					$param_price = sprintf("%.2f", $_SESSION["total_price"]);
-					$param_status = "nie_opłacony";
-					if($stmt->execute())
+					$task->bind_param("siss", $bind_invoice, $bind_userid, $bind_price, $bind_status);
+					$bind_invoice = $ref;
+					$bind_userid = $_SESSION["userId"];
+					$bind_price = sprintf("%.2f", $_SESSION["total_price"]);
+					$bind_status = "nie_opłacony";
+					if($task->execute())
 					{
 						echo "success";
 					} 
@@ -292,7 +344,7 @@ use tFPDF;
 					{
 						echo "Oops! $link->error";
 					}
-					$stmt->close();
+					$task->close();
 				}		
 				$link->close();
 				
@@ -310,14 +362,14 @@ use tFPDF;
 			{
 				foreach ($_SESSION["cart"] as $product) 
 				{
-					$sql = "INSERT INTO order_details (orderID, productID, price) VALUES (?, ?, ?)";
-					if($stmt = mysqli_prepare($link, $sql))
+					$query = "INSERT INTO order_details (orderID, productID, price) VALUES (?, ?, ?)";
+					if($task = mysqli_prepare($link, $query))
 					{
-						$stmt->bind_param("iis", $param_order, $param_product, $param_price);
-						$param_order = Database::FindOrder($ref);
-						$param_product = $product["id"];
-						$param_price = sprintf("%.2f", $product["price"]*$product["quantity"]);
-						if($stmt->execute())
+						$task->bind_param("iis", $bind_order, $bind_product, $bind_price);
+						$bind_order = Database::FindOrder($ref);
+						$bind_product = $product["id"];
+						$bind_price = sprintf("%.2f", $product["price"]*$product["quantity"]);
+						if($task->execute())
 						{
 							echo "success";
 						} 
@@ -327,7 +379,7 @@ use tFPDF;
 						}
 						
 					}
-					$stmt->close();		
+					$task->close();		
 				}
 				$link->close();
 			}

@@ -57,7 +57,7 @@ if(isset($_POST["tag"])&& $_POST['tag']!="" )
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="terminal/pictures/Favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../Content/Pictures/world.png" />
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>IT World</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -99,7 +99,7 @@ if(isset($_POST["tag"])&& $_POST['tag']!="" )
                <ul class="menu">
                     <li> <a href="Service.php"> Usługi </a> </li>
                     <li> <a href="Pricing.php"> Cennik </a> </li>
-                    <li> <a href="Calculator.php"> Monitoring </a> </li>
+                    <li> <a href="Monitoring.php"> Monitoring </a> </li>
 
                     <?php
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){}else 

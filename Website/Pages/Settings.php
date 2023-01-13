@@ -1,8 +1,10 @@
 <?php
+    namespace Classess;
     session_start();
-    require_once "../Scripts/Config.php";
+    require_once "../Classes/Classess.php";
     $password = $confirmation = $confirm_password = "";
     $password_err = $confirm_password_err = "";
+    $email = $_SESSION["email"];
     if($_SERVER["REQUEST_METHOD"] == "POST")
     {
         if(empty(trim($_POST["password"])))
@@ -33,31 +35,16 @@
 
         if(empty($password_err) && empty($confirm_password_err))
         {
-            $sql = "update users set password = ? where email = ?";
-            if($stmt = mysqli_prepare($link, $sql))
-            {
-                $stmt->bind_param("ss", $param_email, $param_password);
-                $param_email = $_SESSION["username"];
-                $param_password = password_hash($password, PASSWORD_DEFAULT);
-                if($stmt->execute())
-                {
-                    $confirmation = "Hasło pomyślnie zmienione";
-                    header("location: Settings.php");
-                } 
-                else
-                {
-                    echo "Oops! $link->error";
-                }
-                $stmt->close();
-            }
+            Database::ChangePassForLoggedUser($email,$password);
+            $confirmation = "Hasło pomyślnie zmienione";
         }
-        $link->close();
+        
     }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="terminal/pictures/Favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../Content/Pictures/world.png" />
     <meta charset="UTF-8" /> 
     <title>IT World</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -80,27 +67,26 @@
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
                     {
                         echo("<a href='Login.php' class='button'> Logowanie </a>". 
-                             "<a href='Register.php' class='button'> Rejestracja </a>");
-                            
+                             "<a href='Register.php' class='button'> Rejestracja </a>");        
                     }
                     else
                     {
                         echo("<a class='button' href='../Scripts/Logout.php'><img src='../Content/Pictures/logout.png' width='35px' height='30px'/></a>".
                              "<a class='button' href='settings.php'><img src='../Content/Pictures/settings.png' width='35px' height='30px'/></a>");
                         if(!empty($_SESSION["cart"])) 
-                            {
-                                $cart_count = count(array_keys($_SESSION["cart"]));
-                                echo ("<div class='cart_div'><a class='button' href='cart.php'>
+                        {
+                            $cart_count = count(array_keys($_SESSION["cart"]));
+                            echo ("<div class='cart_div'><a class='button' href='cart.php'>
                                 <img src='../Content/Pictures/cart.png' width='35px' height='30px'/>
                                 <span class='cart-span'>$cart_count</span></div>");                
-                            }
+                        }
                     }
                 ?>
                
                 <ul class="menu">
                     <li> <a href="Service.php"> Usługi </a> </li>
                     <li> <a href="Pricing.php"> Cennik </a> </li>
-                    <li> <a href="Calculator.php"> Monitoring </a> </li>
+                    <li> <a href="Monitoring.php"> Monitoring </a> </li>
                     <?php
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){}else 
                     {
@@ -112,18 +98,17 @@
         </div>
         <div class="content-2">
             <div class='margin'></div>     
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">          
-                    <div class="form-group">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">          
+                <div class="form-group">
                     <h3>Zmień hasło</h3></br>
-                        <input type="password" name="password"  placeholder="Wpisz hasło" class="form-style <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
-                        <span class="invalid-feedback"><?php echo $password_err; ?></span></br></br>
-                        <input type="password" name="confirm_password" placeholder="Potwierdź hasło" class="form-style <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
-                        <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span></br></br>
-                        <input type="submit" class="btn btn-primary" value="Wyślij">
-                        <span class="success-feedback"><?php echo $confirmation; ?></span>
-                        </br>
-                    </div>   
-                </form>
+                    <input type="password" name="password"  placeholder="Wpisz hasło" class="form-style <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                    <span class="invalid-feedback"><?php echo $password_err; ?></span></br></br>
+                    <input type="password" name="confirm_password" placeholder="Potwierdź hasło" class="form-style <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+                    <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span></br></br>
+                    <input type="submit" class="btn btn-primary" value="Wyślij">
+                    </br><span class="success-feedback" style='color:green;'><?php echo $confirmation; ?></span></br>             
+                </div>   
+            </form>
         </div>
         <div class="footer">
             <div class="footer-allign">

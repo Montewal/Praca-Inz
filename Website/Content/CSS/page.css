@@ -106,7 +106,9 @@ p{
     inline-size: 400px;
 }
 .index-img{
-    margin-left: 30px;
+    margin-right: 120px;
+    width: 160px;
+    height: 160px;
 }
 .index-img img{
     border: 8px solid white;
@@ -136,14 +138,14 @@ ul.maintenance {
 }
 .desc h3, h6{
     padding: 20px;
-    background-color: #fff;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.826);
     inline-size: 500px;
     margin: 700px 0 0 0 
 }
 @media (min-width: 60em) {
     .content-text {
-        inline-size: 1000px !important;
-        
+        inline-size: 1000px !important; 
     }
     p {
         font-size: 30px;
@@ -158,6 +160,10 @@ ul.maintenance {
     }
     .desc h3{
         inline-size: 500px !important;
+    }
+    .index-img{
+        width: 300px !important;
+        height: 300px !important;
     }
     h3 {
         inline-size: 600px;

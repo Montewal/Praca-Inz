@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="terminal/pictures/Favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="Website/Content/Pictures/world.png" />
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>IT World</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -45,7 +45,7 @@
                 <ul class="menu">
                     <li> <a href="Website/Pages/Service.php"> Usługi </a> </li>
                     <li> <a href="Website/Pages/Pricing.php"> Cennik </a> </li>
-                    <li> <a href="Website/Pages/Calculator.php">Monitoring </a> </li>
+                    <li> <a href="Website/Pages/Monitoring.php">Monitoring </a> </li>
                     <?php
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){}else 
                     {
@@ -83,8 +83,8 @@
                     <h1>Czym się zajmujemy?</h1></br></br>
                     <table class='index-img'>
                         <tr>
-                        <td><a href='Website/Pages/Service.php'><img class='index-img' src="Website/Content/Pictures/clint-patterson-yGPxCYPS8H4-unsplash.jpg" width='300px' height='300px'></a></td>
-                        <td><a href='Website/Pages/Calculator.php'><img class='index-img' src="Website/Content/Pictures/tobias-tullius-4dKy7d3lkKM-unsplash.jpg" width='300px' height='300px'></a></td>
+                        <td><a href='Website/Pages/Service.php'><img class='index-img' src="Website/Content/Pictures/clint-patterson-yGPxCYPS8H4-unsplash.jpg"></a></td>
+                        <td><a href='Website/Pages/Calculator.php'><img class='index-img' src="Website/Content/Pictures/tobias-tullius-4dKy7d3lkKM-unsplash.jpg"></a></td>
                         </tr>
                     </table>
                 </div>

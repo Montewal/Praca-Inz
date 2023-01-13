@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="terminal/pictures/Favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../Content/Pictures/world.png" />
     <meta charset="UTF-8" /> 
     <title>Monitoring</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -48,7 +48,7 @@
                 <ul class="menu">   
                     <li> <a href="Service.php"> Usługi </a> </li>
                     <li> <a href="Pricing.php"> Cennik </a> </li>
-                    <li> <a href="Calculator.php"> Monitoring </a> </li>
+                    <li> <a href="Monitoring.php"> Monitoring </a> </li>
                     <?php
                     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){}else 
                     {
@@ -67,17 +67,17 @@
                 <div class='Monitoring'>
                     <div class='margin'></div>
                     <div class="desc">
-                            <h3>
-                                Kamery przemysłowe IP to nowoczesne urządzenie monitoringowe 
-                                wyposażone we własne adresy sieciowe umożliwiają na żywo przetwarzanie oraz 
-                                transmisję obrazu przez sieć IP.</br></br> Kolejnym atutem jest wideoserwer w który zostały 
-                                wyposażone dzięki którym możliwe jest śledzenie obrazu zdalnie z dowolnego urzadzenia 
-                                podłączonego do sieci lokalnej firmy lub domowej. </br></br>Technologiczne zaawansowanie kamer IP
-                                pozwala na całodobową pracę w trybie dzień/noc oraz analizy obrazu np rozpoznawania ludzkich sylwetek.
-                                </br></br>Polecamy skorzystać z naszego kalkulatora HDD który oblicza przybliżoną wagę pliku z monitoringu.
-                                </br></br> Kamery IP możesz kupić <a href='shop.php'>tutaj</a>
-                            </h3>
-                        </div>
+                        <h3>
+                            Kamery przemysłowe IP to nowoczesne urządzenie monitoringowe
+                            wyposażone we własne adresy sieciowe umożliwiają na żywo przetwarzanie oraz
+                            transmisję obrazu przez sieć IP.</br></br>  Kolejnym atutem jest wideoserwer, w który zostały
+                            wyposażone, dzięki którym możliwe jest śledzenie obrazu zdalnie z dowolnego urządzenie
+                            podłączonego do sieci lokalnej firmy lub domowej. </br></br>Technologiczne zaawansowanie kamer IP
+                            pozwala na całodobową pracę w trybie dzień/noc oraz analizy obrazu np. rozpoznawania ludzkich sylwetek.
+                            </br></br>Polecamy skorzystać z naszego kalkulatora HDD, który oblicza przybliżoną wagę pliku z monitoringu
+                            </br></br> Kamery IP możesz kupić <a href='shop.php'>tutaj</a>
+                        </h3>
+                    </div>
                 </div>
                 <div class='Calc-HDD'>
                     <div class='margin'></div>
