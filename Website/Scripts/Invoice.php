@@ -1,6 +1,7 @@
 <?php
 namespace Classess;
 session_start();
+error_reporting(~E_WARNING & ~E_NOTICE);
 require_once "../Classes/Classess.php";
 $ref = Generate::Invoice_RefCode();
 Database::AddOrder($ref);

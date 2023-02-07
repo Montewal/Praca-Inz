@@ -3,55 +3,62 @@ namespace Classess;
 session_start();
 error_reporting(~E_WARNING & ~E_NOTICE);
 require_once "../Scripts/Config.php";
-
-if(isset($_POST["turn"]))
-{   
-    $_SESSION["page"] = $_POST['turn'];
-}
-
-$status="";
-if(isset($_POST["tag"])&& $_POST['tag']!="" )
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true)
 {
-	$tag = $_POST['tag'];
-	$result = mysqli_query($link,"SELECT * FROM products WHERE tag = '$tag' ");
-	$row = mysqli_fetch_assoc($result);
+    header("location: Login.php");
+    exit;
+}
+else 
+{
+    if(isset($_POST["turn"]))
+    {   
+        $_SESSION["page"] = $_POST['turn'];
+    }
 
-    $id = $row["id"];
-	$name = $row['name'];
-	$tag = $row['tag'];
-	$price = $row['price'];
-	$img = $row['img'];
+    $status="";
+    if(isset($_POST["tag"])&& $_POST['tag']!="" )
+    {
+        $tag = $_POST['tag'];
+        $result = mysqli_query($link,"SELECT * FROM products WHERE tag = '$tag' ");
+        $row = mysqli_fetch_assoc($result);
 
-	$cartArr = array(
-		$tag=>array(
-        'id'=>$id,
-		'name'=>$name,
-		'price'=>$price,
-		'tag'=>$tag,
-		'quantity'=>1,
-		'image'=>$img)
-	);
+        $id = $row["id"];
+        $name = $row['name'];
+        $tag = $row['tag'];
+        $price = $row['price'];
+        $img = $row['img'];
 
-	if(empty($_SESSION["cart"])) 
-	{
-		$_SESSION["cart"] = $cartArr;
-		$status = "<div class='box'> Dodano do koszyka </div>";
-	}
-	else
-	{
-		$arr_keys = array_keys($_SESSION["cart"]);
+        $cartArr = array(
+            $tag=>array(
+            'id'=>$id,
+            'name'=>$name,
+            'price'=>$price,
+            'tag'=>$tag,
+            'quantity'=>1,
+            'image'=>$img)
+        );
 
-		if(in_array($tag,$arr_keys)) 
-		{
-			$status = "<div class='box' style='color:red;'>
-			Ten produkt już znajduje się w koszyku </div>";	
-		} 
-		else 
-		{
-			$_SESSION["cart"] = array_merge($_SESSION["cart"],$cartArr);
-			$status = "<div class='box'> Dodano do koszyka </div>";
-		}
-	}
+        if(empty($_SESSION["cart"])) 
+        {
+            $_SESSION["cart"] = $cartArr;
+            $status = "<div class='box'> Dodano do koszyka </div>";
+        }
+        else
+        {
+            $arr_keys = array_keys($_SESSION["cart"]);
+
+            if(in_array($tag,$arr_keys)) 
+            {
+                $status = "<div class='box' style='color:red;'>
+                Ten produkt już znajduje się w koszyku </div>";	
+            } 
+            else 
+            {
+                $_SESSION["cart"] = array_merge($_SESSION["cart"],$cartArr);
+                $status = "<div class='box'> Dodano do koszyka </div>";
+            }
+        }
+    }
 }
 ?>
 <!DOCTYPE html>

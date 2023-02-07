@@ -6,7 +6,7 @@
     {
         if(empty(trim($_POST["username"])))
         {
-            $username_err = "Please enter a username.";
+            $username_err = "Proszę podać nazwę użytkownika.";
         } 
         else
         {
@@ -20,7 +20,7 @@
                     $task->store_result();
                     if($task->num_rows == 1)
                     {
-                        $username_err = "This username is already taken.";
+                        $username_err = "Ten użytkownik już istnieje.";
                     } 
                     else
                     {
@@ -29,7 +29,7 @@
                 } 
                 else
                 {
-                    echo "Oops! Something went wrong. Please try again later. pierwsze";
+                    echo "Oops! coś poszło nie tak";
                 }
                 $task->close();
             }
@@ -37,11 +37,11 @@
 
         if(empty(trim($_POST["password"])))
         {
-            $password_err = "Please enter a password.";
+            $password_err = "Proszę podać hasło.";
         } 
         elseif(strlen(trim($_POST["password"])) < 8)
         {
-            $password_err = "Password must have atleast 8 characters.";
+            $password_err = "Hasło musi zawierać conajmniej 8 znaków.";
         } 
         else
         {
@@ -50,24 +50,46 @@
 
         if(empty(trim($_POST["confirm_password"])))
         {
-            $confirm_password_err = "Please confirm password.";
+            $confirm_password_err = "Proszę potwierdzić hasło.";
         } 
         else
         {
             $confirm_password = trim($_POST["confirm_password"]);
             if(empty($password_err) && ($password != $confirm_password))
             {
-                $confirm_password_err = "Password did not match.";
+                $confirm_password_err = "Hasła nie są identyczne.";
             }
         }
 
         if(empty(trim($_POST["email"])))
         {
-            $email_err = "Please enter email.";
+            $email_err = "Proszę podać mail.";
         } 
         else
         {
-            $email = trim($_POST["email"]);
+            $query = "SELECT id FROM users WHERE email = ?";
+            if($task = mysqli_prepare($link, $query))
+            {
+                $task->bind_param("s", $bind_email);
+                $bind_email = trim($_POST["email"]);
+                if($task->execute())
+                {
+                    $task->store_result();
+                    if($task->num_rows == 1)
+                    {
+                        $email_err = "Ten mail jest już w użytku.";
+                    } 
+                    else
+                    {
+                        $email = trim($_POST["email"]);
+                    }
+                } 
+                else
+                {
+                    echo "Oops! coś poszło nie tak";
+                }
+                $task->close();
+            }
         }
 
         if(empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err))
@@ -96,8 +118,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <link rel="icon" type="image/x-icon" href="../Content/Pictures/world.png" />
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zarejestruj się</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../Content/CSS/login-system.css" /> 
 </head>

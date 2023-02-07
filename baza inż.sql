@@ -1,3 +1,4 @@
+-- Active: 1670695126972@@127.0.0.1@3306@it_world
 CREATE DATABASE IT_World;
 USE IT_World;
 CREATE TABLE users (
@@ -29,7 +30,7 @@ CREATE TABLE order_details (
     FOREIGN KEY (orderID) REFERENCES orders(id),
     FOREIGN KEY (productID) REFERENCES products(id)	
 );
-CREATE USER 'customer_service'@'localhost' IDENTIFIED BY 'qwe123rty456';
+CREATE USER 'customer_service'@'localhost' IDENTIFIED BY '23P4#@dO!9';
 CREATE USER 'admin'@'localhost' IDENTIFIED BY '1p48A48*K#';
 grant all on IT_World.users to 'admin'@'localhost';
 grant all on IT_World.orders to 'admin'@'localhost';

@@ -27,6 +27,7 @@ use tFPDF;
 		{
 			session_start();
 			require('../../vendor/tfpdf/tfpdf.php');
+			$signature = '../Content/Pictures/Podpis.png';
 
 			$pdf = new tFPDF('P','mm','A4');
 			$pdf->AddPage();
@@ -53,6 +54,7 @@ use tFPDF;
 			$pdf->Cell(110 ,5,'helpdesk@IT_World',0,0);
 			$pdf->Cell(30 ,5,'Email: ',0,0);
 			$pdf->Cell(34 ,5,$_SESSION["email"],0,1); 
+			$pdf->Cell(110 ,5,'NIP: 981-126-00-23',0,1);
 			$pdf->Cell(110 ,5,'',0,1);
 			$pdf->Cell(30 ,5,'Nr konta: 40 0874 9852 XXXX 3258 XXXX 7539',0,1);
 			$pdf->Cell(30 ,5,'Termin zapłaty: '.date('d.m.Y', strtotime(date("Y-m-d"). ' + 14 days')),0,1);
@@ -61,29 +63,38 @@ use tFPDF;
 			$pdf->Cell(50 ,10,'',0,1);
 
 			$pdf->SetFont('Times','',10);
-			$pdf->Cell(10 ,6,'ID',1,0,'C');
+			$pdf->Cell(6 ,6,'ID',1,0,'C');
 			$pdf->Cell(80 ,6,'Nazwa',1,0,'C');
-			$pdf->Cell(18 ,6,'Ilość',1,0,'C');
-			$pdf->Cell(39 ,6,'Koszt za sztukę [Brutto]',1,0,'C');
-			$pdf->Cell(40 ,6,'Koszt całkowity [Brutto]',1,1,'C');
+			$pdf->Cell(10 ,6,'Ilość',1,0,'C');
+			$pdf->Cell(20 ,6,'Cena Netto',1,0,'C');
+			$pdf->Cell(24 ,6,'Wartość netto',1,0,'C');
+			$pdf->Cell(10 ,6,'VAT',1,0,'C');
+			$pdf->Cell(20 ,6,'Kwota VAT',1,0,'C');
+			$pdf->Cell(24 ,6,'Wartość brutto',1,1,'C');
 
 			if(isset($_SESSION["cart"]))
 			{
-				$total_price = 0;
+				$VAT = $netto = $netto_val = $total_price = 0;
 				$a = 1;
 				foreach ($_SESSION["cart"] as $product)
-				{		
+				{	
+					$netto = sprintf("%.2f",round($product["price"] / 1.23,2));	
+					$netto_val = round(($product["price"] / 1.23)*$product["quantity"],2);
+					$VAT = round(($product["price"]*$product["quantity"]) - (($product["price"] / 1.23)*$product["quantity"]),2);
 					$pdf->SetFont('Times','',10);
-					$pdf->Cell(10 ,6,$a++,1,0,'C');
+					$pdf->Cell(6 ,6,$a++,1,0,'C');
 					$pdf->Cell(80 ,6,$product['name'],1,0,'C');
-					$pdf->Cell(18 ,6,$product["quantity"],1,0,'C');
-					$pdf->Cell(39 ,6,$product["price"].' zł',1,0,'C');
-					$pdf->Cell(40 ,6,sprintf("%.2f",$product["price"]*$product["quantity"]).' zł',1,1,'C');  
+					$pdf->Cell(10 ,6,$product["quantity"],1,0,'C');
+					$pdf->Cell(20 ,6,$netto.' zł',1,0,'C');
+					$pdf->Cell(24 ,6,$netto_val.' zł',1,0,'C'); 
+					$pdf->Cell(10 ,6,'23%',1,0,'C');
+					$pdf->Cell(20 ,6,sprintf("%.2f",$VAT).' zł',1,0,'C');
+					$pdf->Cell(24 ,6,sprintf("%.2f",$product["price"]*$product["quantity"]).' zł',1,1,'C');     
 					$total_price += ($product["price"]*$product["quantity"]);
 				}
 				$pdf->Cell(118 ,6,'',0,0);
-				$pdf->Cell(29 ,6,'Podsumowanie:',0,0);
-				$pdf->Cell(40 ,6,sprintf("%.2f", $total_price).' zł',1,1,'C'); 
+				$pdf->Cell(52 ,6,'Podsumowanie:',0,0);
+				$pdf->Cell(24 ,6,sprintf("%.2f", $total_price).' zł',1,1,'C'); 
 			}
 			$pdf->Cell(30 ,10,'',0,1);
 			$pdf->SetFont('Times','B',12);
@@ -93,6 +104,31 @@ use tFPDF;
 			$pdf->Cell(10 ,7,'Razem do Zapłaty: '.sprintf("%.2f", $total_price).' zł',0,1);
 			$pdf->SetFont('Times','',10);
 			$pdf->Cell(10 ,5,'Kwota słownie: '.Generate::NumberToText($total_price).' złotych',0,1);
+			$pdf->Cell(110 ,5,'',0,1);
+			$pdf->Cell(110 ,5,'',0,1);
+			$pdf->Cell(110 ,5,'',0,1);
+			$pdf->Cell(110 ,5,'',0,1);
+			$pdf->Cell(110 ,5,'',0,1);
+			$pdf->Cell(110 ,5,'',0,1);
+			$pdf->Cell(30 ,5,'',0,0);
+			$pdf->Cell(100 ,5,'',0,0);
+			$pdf->Cell(30 ,5,$pdf->Image($signature, $pdf->GetX(), $pdf->GetY(), -200),0,0);
+			
+			$pdf->Cell(110 ,5,'',0,1);
+			
+			$pdf->Cell(110 ,5,'',0,1);
+			$pdf->Cell(110 ,5,'',0,1);
+			
+			$pdf->SetFont('Times','U',20);
+			$pdf->Cell(30 ,5,'                                       ',0,0);
+			$pdf->Cell(80 ,5,'',0,0);
+			$pdf->Cell(30 ,5,'                                           ',0,1);
+			$pdf->SetFont('Times','',10);
+			$pdf->Cell(30 ,5,'Podpis osoby upoważnionej do odbioru faktury',0,0);
+			$pdf->Cell(80 ,5,'',0,0);
+			
+			$pdf->Cell(30 ,5,'Podpis osoby upoważnionej do Wystawienia faktury',0,1);
+
 			$pdf->Output("F", "../../Invoice/".$ref.".pdf");
 		}
 		public static function NumberToText($num) 
@@ -218,9 +254,11 @@ use tFPDF;
 			{
 				return false;
 			} 	
-				$query = "SELECT email FROM users WHERE email = '$email'";
+				$query = "SELECT email FROM users WHERE email = ?";
 				if($task = mysqli_prepare($link, $query))
 				{
+					$task->bind_param("s", $bind_email);
+                	$bind_email = $email;
 					if($task->execute())
 					{
 						$task->store_result();
@@ -272,9 +310,11 @@ use tFPDF;
 			{
 				return false;
 			} 	
-				$query = "SELECT email FROM users WHERE email = '$email'";
+				$query = "SELECT email FROM users WHERE email = ?";
 				if($task = mysqli_prepare($link, $query))
 				{
+					$task->bind_param("s", $bind_email);
+                	$bind_email = $email;
 					if($task->execute())
 					{
 						$task->store_result();
@@ -387,35 +427,48 @@ use tFPDF;
 		public static function FindOrder($ref) 
 		{
 			require "../Scripts/Config.php";
-			$query="SELECT id FROM orders WHERE invoice = '".$ref."'";
-    		$query = mysqli_query($link,$query);
-    		$task = mysqli_fetch_assoc($query);
-    		$result = $task['id'];
-			if(!empty($result))
-			{
-				return $result;
-			}
-			else
-			{
-				return false;
+			$query="SELECT id FROM orders WHERE invoice = ?";
+			if($task = mysqli_prepare($link, $query))
+            {
+                $task->bind_param("s", $bind_invoice);
+                $bind_invoice = $ref;
+				if($task->execute())
+                {
+					$task->bind_result($result);
+    				if($task->fetch())
+					{
+						return $result;
+					}
+					else
+					{
+						return false;
+					}
+				}
 			}
     		mysqli_close($link);
 		}
 		public static function CheckUser($email) 
 		{
 			require "../Scripts/Config.php";
-			$query="SELECT username FROM users WHERE email = '".$email."'";
-    		$query = mysqli_query($link,$query);
-    		$task = mysqli_fetch_assoc($query);
-    		$result = $task['username'];
-			if(!empty($result))
-			{
-				return $result;
+			$query="SELECT username FROM users WHERE email = ?";
+			if($task = mysqli_prepare($link, $query))
+            {
+                $task->bind_param("s", $bind_email);
+                $bind_email = $email;
+				if($task->execute())
+                {
+					$task->bind_result($result);
+    				if($task->fetch())
+					{
+						return $result;
+					}
+					else
+					{
+						return false;
+					}
+				}
 			}
-			else
-			{
-				return false;
-			}
+			
     		mysqli_close($link);
 		}
 	}

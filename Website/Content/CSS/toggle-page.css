@@ -86,12 +86,10 @@
     font-family:Verdana, Geneva, Tahoma, sans-serif; color: black;
 }
 .toggle:hover ,.call_us:hover {
-    background: #878cdd5d;
-    border: #1f28a9 solid 4px;
-    border-style: hidden solid solid solid;
+    background: none;
     color: #000000;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px 4px rgba(21,21,21,.5);
+    border-radius: 30%;
+    
 }
 
 .Calc-HDD , .Monitoring, .PC, .Laptop {

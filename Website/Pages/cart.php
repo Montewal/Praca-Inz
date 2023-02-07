@@ -2,38 +2,46 @@
 	namespace Classess;
 	session_start();
 	error_reporting(~E_WARNING & ~E_NOTICE);
-	$status="";
-	if (isset($_POST['action']) && $_POST['action']=="remove")
+	if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true)
 	{
-		if(!empty($_SESSION["cart"])) 
+    	header("location: Login.php");
+    	exit;
+	}
+	else 
+	{
+		$status="";
+		if (isset($_POST['action']) && $_POST['action']=="remove")
 		{
-			foreach($_SESSION["cart"] as $key => $value) 
+			if(!empty($_SESSION["cart"])) 
 			{
-				if($_POST["tag"] == $key)
+				foreach($_SESSION["cart"] as $key => $value) 
 				{
-					unset($_SESSION["cart"][$key]);
-					$status = "<div class='box' style='color:red;'>
-							   Usunięto z koszyka</div>";
-				}
+					if($_POST["tag"] == $key)
+					{
+						unset($_SESSION["cart"][$key]);
+						$status = "<div class='box' style='color:red;'>
+								Usunięto z koszyka</div>";
+					}
 
-				if(empty($_SESSION["cart"])) 
-				{		
-					unset($_SESSION["cart"]);
+					if(empty($_SESSION["cart"])) 
+					{		
+						unset($_SESSION["cart"]);
+					}
+				}		
+			}
+		}
+
+		if (isset($_POST['action']) && $_POST['action']=="change")
+		{
+			foreach($_SESSION["cart"] as &$value)
+			{
+				if($value['tag'] === $_POST["tag"])
+				{
+					$value['quantity'] = $_POST["quantity"];
+					break; 
 				}
 			}		
 		}
-	}
-
-	if (isset($_POST['action']) && $_POST['action']=="change")
-	{
-		foreach($_SESSION["cart"] as &$value)
-		{
-			if($value['tag'] === $_POST["tag"])
-			{
-				$value['quantity'] = $_POST["quantity"];
-				break; 
-			}
-		}		
 	}
 ?>
 <html>
@@ -73,10 +81,10 @@
 				<tbody>
 					<tr>
 						<td></td>
-						<td>ITEM NAME</td>
-						<td>QUANTITY</td>
-						<td>UNIT PRICE</td>
-						<td>ITEMS TOTAL</td>
+						<td>Nazwa</td>
+						<td>Ilość</td>
+						<td>Koszt / sztuka</td>
+						<td>Całkowity koszt</td>
 					</tr>	
 				<?php		
 				foreach ($_SESSION["cart"] as $product)
