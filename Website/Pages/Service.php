@@ -61,7 +61,7 @@
             <div class='buttons'>
                 <button class='toggle' name='Laptop' >Laptopy</button>
                 <button class='toggle' name='PC' >Komputery stacjonarne</button>
-                <a href="mailto:kkorzeniowski.it@gmail.com"><button class='call_us'>Zamów serwis</button></a>
+                <a href="mailto:"><button class='call_us'>Zamów serwis</button></a> <!-- gmail -->
             </div>
             <div class='page-toggle'>
                 <div class='Laptop'>

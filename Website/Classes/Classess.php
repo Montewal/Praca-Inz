@@ -232,8 +232,8 @@ use tFPDF;
 				$mail->Host = "smtp.gmail.com";
 				$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 				$mail->Port = 587;
-				$mail->Username = "kkorzeniowski.it@gmail.com";
-				$mail->Password = "jwkgzgfklfmamdxt";
+				$mail->Username = ""; //gmail
+				$mail->Password = ""; // gmail app password
 				$mail->addAttachment("../../Invoice/".$ref.".pdf");
 				$mail->IsHTML(true);
 				$mail->setFrom($email, $name);

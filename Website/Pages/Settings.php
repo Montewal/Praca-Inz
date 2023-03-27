@@ -114,7 +114,7 @@
             <div class="footer-allign">
                 <p><b>Kontakt</b></p>
                 <p><img src="../Content/Pictures/phone.png" width='20px' height='20px'><a href="123456789"> 123456789</a></p>
-                <p><img src="../Content/Pictures/mail.png" width='20px' height='20px'><a href="mailto:kkorzeniowski.it@gmail.com"> Wyślij do nas maila</a></p>
+                <p><img src="../Content/Pictures/mail.png" width='20px' height='20px'><a href="mailto:"> Wyślij do nas maila</a></p> <!-- gmail -->
                 <p><img src="../Content/Pictures/compass.png" width='20px' height='20px'><a href="https://www.google.com/maps/search/wroc%C5%82aw+Serwisant%C3%B3w+12/@51.1270151,16.9218244,12z/data=!3m1!4b1"> Serwisantów 12 Wrocław 53-343</a></p>
             </div>
         </div>  
